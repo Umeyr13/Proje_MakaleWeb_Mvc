@@ -5,6 +5,12 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proje_MakaleWeb_Mvc", "Proje_MakaleWeb_Mvc\Proje_MakaleWeb_Mvc.csproj", "{01193604-A1BE-4E47-903B-21D420FAA89E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakaleDataAccessLayer", "MakaleDataAccessLayer\MakaleDataAccessLayer.csproj", "{EA601C3C-E0E4-41D9-AF3A-B580C0195427}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makale_Entities", "Makale_Entities\Makale_Entities.csproj", "{1BEF20F5-41C8-4CEF-AB0E-642A6638DFDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakaleBLL", "MakaleBLL\MakaleBLL.csproj", "{AA2B531F-0A1B-434A-B105-60149999D2E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{01193604-A1BE-4E47-903B-21D420FAA89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01193604-A1BE-4E47-903B-21D420FAA89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01193604-A1BE-4E47-903B-21D420FAA89E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA601C3C-E0E4-41D9-AF3A-B580C0195427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA601C3C-E0E4-41D9-AF3A-B580C0195427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA601C3C-E0E4-41D9-AF3A-B580C0195427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA601C3C-E0E4-41D9-AF3A-B580C0195427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BEF20F5-41C8-4CEF-AB0E-642A6638DFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEF20F5-41C8-4CEF-AB0E-642A6638DFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEF20F5-41C8-4CEF-AB0E-642A6638DFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEF20F5-41C8-4CEF-AB0E-642A6638DFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA2B531F-0A1B-434A-B105-60149999D2E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA2B531F-0A1B-434A-B105-60149999D2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA2B531F-0A1B-434A-B105-60149999D2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA2B531F-0A1B-434A-B105-60149999D2E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
