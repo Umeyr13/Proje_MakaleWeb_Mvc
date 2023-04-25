@@ -1,6 +1,8 @@
-﻿using MakaleDataAccessLayer;
+﻿using Makale_Entities;
+using MakaleDataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +16,9 @@ namespace MakaleBLL // Logic İş Katmanı
         {
          DatabaseContext db = new DatabaseContext();   
             
-            //db.Kullanicilar.Tolist(); Data base oluşturmayı tetikler ama "18" deki daha iyi
-            db.Database.CreateIfNotExists();
+            db.Kullanicilar.ToList();// Data base oluşturmayı tetikler ama "satır 18" deki daha iyi
+            
+            //db.Database.CreateIfNotExists();
         }
 
     }
