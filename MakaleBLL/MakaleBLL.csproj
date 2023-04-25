@@ -59,6 +59,10 @@
       <Project>{ea601c3c-e0e4-41d9-af3a-b580c0195427}</Project>
       <Name>MakaleDataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Makale_Entities\Makale_Entities.csproj">
+      <Project>{1BEF20F5-41C8-4CEF-AB0E-642A6638DFDF}</Project>
+      <Name>Makale_Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
