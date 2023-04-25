@@ -21,6 +21,11 @@ namespace Makale_Entities
         [StringLength(150)]
         public string Aciklama { get; set; }
 
-        public virtual List<Makale> Makaleler { get; set; }
+        public virtual List<Makale> Makaleler { get; set; }//0013
+
+        public Kategori() //0013 de hata alamamak için Ctor da Makalelerin bir nesne örneğini aldık.
+        {
+            Makaleler = new List<Makale>();
+        }
     }
 }
