@@ -1,6 +1,8 @@
-﻿using MakaleDataAccessLayer;
+﻿using Makale_Entities;
+using MakaleDataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

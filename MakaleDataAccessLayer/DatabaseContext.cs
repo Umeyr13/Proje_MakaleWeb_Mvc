@@ -18,7 +18,7 @@ namespace MakaleDataAccessLayer
 
         public DatabaseContext()
         {
-            Database.SetInitializer(new VeriTabaniOlusturucu());
+            Database.SetInitializer(new VeriTabaniOlusturucu()); //buradan veri  tabanı sınıfını tetikleyip orada da veri tabanını oluşmasını bekliyoruz.
         }
 
     }

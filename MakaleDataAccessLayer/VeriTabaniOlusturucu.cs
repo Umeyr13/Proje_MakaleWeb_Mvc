@@ -63,8 +63,9 @@ namespace MakaleDataAccessLayer
                 context.Kullanicilar.Add(k);
 
             }
+            context.SaveChanges();
 
-            
+            List<Kullanici> kullanicilar = context.Kullanicilar.ToList(); //Database den bütün kullanıcı verilerini alıyoruz. Aşağıda içinden kullanıcı alıp kullanıyoruz.
 
             for (int i = 0; i < 5; i++)
             {
@@ -83,7 +84,9 @@ namespace MakaleDataAccessLayer
 
                 for (int j = 0; j < 6; j++)
                 {
-                    Kullanici kullanici = Ku[FakeData.NumberData.GetNumber(0, 5)];
+                    Kullanici rasgelekullanici= kullanicilar[FakeData.NumberData.GetNumber(0, 5)];//rasgele bir tane kullanıcı aldık
+                    
+
                     // Makale Ekle
 
                     Makale makale = new Makale()
@@ -100,7 +103,9 @@ namespace MakaleDataAccessLayer
                         ,
                         DegistirmeTarihi = DateTime.Now
                         ,
-                        DegistirenKullanici = admin.KullaniciAdi
+                        DegistirenKullanici = rasgelekullanici.KullaniciAdi //makaleyi değiştiren 
+
+                        ,Kullanici = rasgelekullanici //makaleyi yazan
 
                     };
                     
@@ -113,12 +118,14 @@ namespace MakaleDataAccessLayer
 
                     for (int z = 0; z < 3; z++)
                     {
+                        Kullanici rasgelekullanici2 = kullanicilar[FakeData.NumberData.GetNumber(0, 5)]; //rasgele başka kullanıcı. yorum yapan kullanıcı seçmek için aldık
                         Yorum yorum = new Yorum()
                         {
                             Text = FakeData.TextData.GetSentence()
                             ,KayitTarihi = DateTime.Now.AddDays(-2)
                             ,DegistirmeTarihi = DateTime.Now
-                            ,DegistirenKullanici=admin.KullaniciAdi
+                            ,DegistirenKullanici=rasgelekullanici2.KullaniciAdi
+                            , Kullanici = rasgelekullanici2
                         };
 
                         //yorum.Makale = makale;
@@ -129,15 +136,15 @@ namespace MakaleDataAccessLayer
                     }
 
 
-                    List<Kullanici> kullanicilar = context.Kullanicilar.ToList();
+                    
                     //Begeni Ekleme - Kim beğendi
 
                     for (int x = 0; x < makale.BegeniSayisi; x++)
                     {
-
+                        Kullanici rasgelekullanici3 = kullanicilar[FakeData.NumberData.GetNumber(0, 5)]; //rasgele başka kullanıcı. Beğenen kullanıcı seçmek için aldık
                         Begeni begen = new Begeni() 
                         {
-                            Kullanici = kullanicilar[x]
+                            Kullanici = rasgelekullanici3
                         };
                         makale.Begeniler.Add(begen);
 
