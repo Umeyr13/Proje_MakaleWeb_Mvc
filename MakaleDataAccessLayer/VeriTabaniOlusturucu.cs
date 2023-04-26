@@ -7,7 +7,7 @@ using System.Linq;
 namespace MakaleDataAccessLayer
 {
     //Database Yoksa oluştur
-    internal class VeriTabaniOlusturucu : CreateDatabaseIfNotExists<DatabaseContext>
+    public class VeriTabaniOlusturucu : CreateDatabaseIfNotExists<DatabaseContext>
     {
         protected override void Seed(DatabaseContext context)
         {
@@ -76,13 +76,14 @@ namespace MakaleDataAccessLayer
                     ,Aciklama=FakeData.PlaceData.GetAddress()
                     ,KayitTarihi= DateTime.Now
                     ,DegistirmeTarihi = DateTime.Now
-                    ,DegistirenKullanici = "Umeyr"
+                    ,DegistirenKullanici = admin.KullaniciAdi
                     
                 };
                 context.Kategoriler.Add(kategori);
 
                 for (int j = 0; j < 6; j++)
                 {
+                    Kullanici kullanici = Ku[FakeData.NumberData.GetNumber(0, 5)];
                     // Makale Ekle
 
                     Makale makale = new Makale()

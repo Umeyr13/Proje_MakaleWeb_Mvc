@@ -1,0 +1,16 @@
+﻿@using MakaleBLL;
+@using Makale_Entities;
+@{ 
+    KategoriYonet ky = new KategoriYonet();
+    List<Kategori> kategoriListesi = ky.Listele();
+}
+
+<p class="lead">Kategoriler PartialpageKAtegori den geldim</p>
+
+<div class="list-group">
+    @foreach (var item in kategoriListesi)
+    {
+        <a href="#" class="list-group-item">@item.Baslik</a>
+    }
+
+</div>
