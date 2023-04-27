@@ -10,7 +10,8 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        MakaleYonet mYonet = new MakaleYonet();
+        KategoriYonet kYonet = new KategoriYonet();
         public ActionResult Index()
         {
             Test test = new Test();
@@ -20,17 +21,44 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             //test.UpdateTest();
             // test.DeleteTest();
             // test.YorumTest();
-            MakaleYonet mYonet = new MakaleYonet();
+            
            
             return View(mYonet.Listele());
 
         }
 
-        public PartialViewResult kategoriPartial()
+        public PartialViewResult kategoriPartial()//Örnek olarak oluşturuldu kullanmıyoruz. Model ile de olduğunu gördük
         {
             KategoriYonet kYonet = new KategoriYonet();
             List<Kategori> liste = kYonet.Listele();
             return PartialView("_PartialPageKat2", liste);//model gönderdik 
         }
+
+        public ActionResult SecilenKategori(int? id)//bu aydi rastgele yazılmadı RouteConfig.cs de "id" url i olduğu için
+        {
+            if (id==null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+
+            Kategori secKat = kYonet.KategoriBul(id.Value);//null olmasına izin verdiğimiz için direk "id" yi değilde id.value yazmamızı istedi
+            return View("Index",secKat.Makaleler);
+        }
+
+        public ActionResult EnBegenilenler()
+        {
+            return View();
+        }
+
+        public ActionResult Sonyazilar()
+        {
+            return View();
+        }
+
+        public ActionResult Hakkımızda() //sayfası olacak
+        {
+            return View();
+        }
+
     }
 }

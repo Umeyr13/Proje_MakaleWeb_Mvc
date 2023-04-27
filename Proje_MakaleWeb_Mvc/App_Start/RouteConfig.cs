@@ -15,7 +15,7 @@ namespace Proje_MakaleWeb_Mvc
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "{controller}/{action}/{id}",//burada id yazdığı için id aldık home controller da
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

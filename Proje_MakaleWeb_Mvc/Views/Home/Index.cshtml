@@ -55,13 +55,21 @@
                             <div class="caption">
                                 <h4>
                                     <a href="#">@item.Baslik</a>
-                                </h4>
+                                </h4> 
                                 <h6 class="text-right">
                                     <span class="glyphicon glyphicon-user"></span>@item.Kullanici.KullaniciAdi
                                     <br />
                                     <span class="glyphicon glyphicon-time"></span>@item.DegistirmeTarihi.ToString("dd:MM:yy")
                                 </h6>
-                                <p>@item.Icerik</p>
+                                @if (!string.IsNullOrEmpty(item.Icerik) && item.Icerik.Length>60)
+                                {
+                                    <p>@item.Icerik.Substring(0,60)...</p>
+                                    <a href="#" class="btn btn-default btn-xs pull-right">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a>
+                                }
+                                else
+                                {
+                                    <p> @item.Icerik</p>
+                                }
 
                             </div>
 
@@ -76,7 +84,7 @@
                                     <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart"></span>@item.BegeniSayisi</button>
                                 </p>
                             </div>
-                            }
+                            
 
 
                         </div>
