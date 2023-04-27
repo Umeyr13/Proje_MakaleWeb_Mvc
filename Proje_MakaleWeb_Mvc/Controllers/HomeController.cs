@@ -45,14 +45,14 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return View("Index",secKat.Makaleler);
         }
 
-        public ActionResult EnBegenilenler()
+        public ActionResult EnBegenilenler()// Index e  modeli değiştirip göndericez
         {
-            return View();
+            return View("Index",mYonet.Listele().OrderByDescending(x =>x.BegeniSayisi).ToList());//büyükten küçüğe sıralamış olduk. Sınır vermedik top 15 veya top 5 gibi ek filtre eklenebilir
         }
 
         public ActionResult Sonyazilar()
         {
-            return View();
+            return View("Index",mYonet.Listele().OrderByDescending(x => x.DegistirmeTarihi).ToList());
         }
 
         public ActionResult Hakkımızda() //sayfası olacak

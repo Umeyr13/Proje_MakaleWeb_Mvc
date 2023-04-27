@@ -12,10 +12,10 @@ namespace MakaleDataAccessLayer
     public class Repository<T> : Singleton, IRepository<T> where T : class
     {
 
-        private DbSet<T> _dbSet;// burayı sor
+        private DbSet<T> _dbSet;
         public Repository()
         {
-            _dbSet = db.Set<T>(); // burayı da 
+            _dbSet = db.Set<T>(); 
         }
         public int Delete(T nesne)
         {
