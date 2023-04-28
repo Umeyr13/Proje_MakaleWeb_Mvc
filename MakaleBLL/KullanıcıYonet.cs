@@ -17,7 +17,7 @@ namespace MakaleBLL
         {
             MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
             Kullanici k =rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email==model.email);
-
+            sonuc.nesne = k;
             if (sonuc.nesne!=null)
             {
                 if (sonuc.nesne.KullaniciAdi== model.KullaniciAdi)

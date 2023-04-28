@@ -24,12 +24,12 @@
                     <div class="input-group">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
 
-                        @Html.TextBoxFor(x => x.Sifre, new { @class = "form-control", placeholder = "Şifre", type = "password", id = "txtsifre" })
+                        @Html.TextBoxFor(x => x.Sifre, new { @class = "form-control",id= "txtsifre", placeholder = "Şifre" })
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
 
-                        @Html.TextBoxFor(x => x.Sifre2, new { @class = "form-control", placeholder = "Şifre(Tekrar)", type = "password" })
+                        @Html.TextBoxFor(x => x.Sifre2, new { @class = "form-control ",id= "txtsifretekrar", placeholder = "Şifre(Tekrar)" })
                     </div>
 
                     <div class="input-group">
@@ -38,8 +38,8 @@
                         @Html.TextBoxFor(x => x.email, new { @class = "form-control", placeholder = "E-posta" })
                     </div>
                     <div class="checkbox">
-                        <label class="goster" id="sifregoster">
-                            <input name="goster" type="checkbox"> Şifreyi Göster
+                        <label class="goster" >
+                            <input name="goster" type="checkbox" id="sifregoster"> Şifreyi Göster
                         </label>
                     </div>
 
@@ -55,3 +55,17 @@
     </section>
 
 }
+
+<script >
+
+    $("#sifregoster").change(function () {
+        var passwordInput = $("#txtsifre");
+        var passwordInputtekrar = $("#txtsifretekrar");
+        var isChecked = $(this).is(":checked");
+        passwordInput.prop("type", isChecked ? "password" : "text");
+        passwordInputtekrar.prop("type", isChecked ? "password" : "text");
+    });
+
+    
+
+</script>
