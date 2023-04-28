@@ -80,9 +80,46 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         [HttpPost]
         public ActionResult Kayıt(RegisterModel model)
         {
-            return View();
+            //Kullanıcı adı ve email varmı kontrolü
+            //kayıt işlemi varmı
+            //aktivasyon mail i gönderilecek
+
+            KullanıcıYonet ky = new KullanıcıYonet();
+
+            if (ModelState.IsValid)
+            {
+                MakaleBLLSonuc<Kullanici> sonuc = ky.KullanıcıBul(model);
+                if (sonuc.hatalar.Count>0)
+                {
+                    sonuc.hatalar.ForEach(x=>ModelState.AddModelError("",x));
+                    return View(model);
+                }
+                else
+                {
+                    //database e kaydet
+                    return RedirectToAction("Giris");
+                }
+            }
+            return View(model);
+
+            //if (ModelState.IsValid)//tüm datalar uygun olarak geldi mi? taşma eksik data gibi şeyler var mı
+            //{
+            //    Kullanici kullanici = ky.KullanıcıBul(model); //RegisterModel tipinde veri gitti
+            //    if (kullanici == null)
+            //    {
+            //        ModelState.AddModelError("","Bu kullanıcı adı yada email kayıtlı");
+            //        return View(model);
+            //    }
+            //    else
+            //    {
+            //        //database e kaydet
+            //        return RedirectToAction("Giris");
+            //    }
+
+            }
+           
+
         }
 
 
-    }
 }
