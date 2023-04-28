@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Makale_Entities;
+using Makale_Entities.ViewModel;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
@@ -59,6 +60,29 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         {
             return View();
         }
+
+        public ActionResult Giris()
+        {
+            return View() ;
+        }
+
+        [HttpPost]
+        public ActionResult Giris(LoginModel model)
+        {
+            return View();
+        }
+
+        public ActionResult Kayıt()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Kayıt(RegisterModel model)
+        {
+            return View();
+        }
+
 
     }
 }

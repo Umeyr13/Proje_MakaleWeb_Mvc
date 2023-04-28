@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Giris";
+}
+
+@using Makale_Entities.ViewModel
+
+@model LoginModel
+
+<link href="~/Content/login.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{ 
+    <section class="login-info">
+    <div class="container">
+        <div class="row main">
+            <div class="form-header">
+                <h1 class="text-center ">login form </h1>
+            </div>
+            <div class="main-content">
+                @Html.ValidationSummary(false) @*tepede hataların çıkması için*@
+                <div class="input-group ">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
+
+                    @Html.TextBoxFor(x =>x.KullaniciAdi,new {@class="form-control",placeholder ="Kullanıcı Adı"} )
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                    
+                    @Html.TextBoxFor(x=>x.Sifre,new {@class="form-control",placeholder ="Şifre",id="txtsifre"})
+                </div>
+
+                <div class="checkbox">
+                    <label class="goster" >
+                        <input name="goster" id="sifregoster"  type="checkbox"> Şifreyi Göster
+                    </label>
+                </div>
+
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-danger btn-lg btn-block login-button">Giriş</button>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+}
+
+<script>
+    $(function () // sAyfa yüklendiğinde
+    {
+        $("footer").hide(); // $("footer").parent().hide(); footer un parent ini gizle demek. footer ın olduğu div i gizledi.
+
+   
+    })
+ 
+    //$("#sifregoster").change(function ()
+    //{
+    //    if ($("#sifregoster").prop('checked'))
+    //    {
+    //        $("#txtsifre").attr("type", "password");
+    //    } else {
+    //        $("#txtsifre").attr("type", "text");
+    //    }
+    //});
+
+    //function togglePassword() {
+    //    var passwordInput = $("#txtsifre");
+    //    var isChecked = $("#sifregoster").prop('checked');
+    //    passwordInput.attr("type", isChecked ? "password" : "text");
+    //}
+    //$("#sifregoster").change(togglePassword);
+
+
+    $("#sifregoster").change(function () {
+        var passwordInput = $("#txtsifre");
+        var isChecked = $(this).is(":checked");
+        passwordInput.prop("type", isChecked ? "password" : "text");
+    });
+     
+</script>

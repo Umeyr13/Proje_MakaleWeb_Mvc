@@ -47,11 +47,19 @@
 
             <div class="row">
 
+                @{ 
+                    Random rnd = new Random();
+                    int x = rnd.Next(200,240);
+                    string link = "https://picsum.photos/id"+x+"/200/300";
+                }
+
                 @foreach (var item in Model)
                 {
+                    x= rnd.Next(200,240);
+                    link = "https://picsum.photos/id/" + x + "/200/300?random=1";
                     <div class=" col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="https://placehold.it/320x150" alt="">
+                            <img src="@link" alt="">
                             <div class="caption">
                                 <h4>
                                     <a href="#">@item.Baslik</a>
