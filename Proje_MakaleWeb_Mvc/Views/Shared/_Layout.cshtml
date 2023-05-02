@@ -26,6 +26,15 @@
 
 <body onselectstart = “return false”>
 
+    @{ 
+        Makale_Entities.Kullanici kul = null; 
+
+        if (Session["Login"]!= null) // eğer session boş değilse kullanıcıyı alıyoruz session dan. Bu sayede kullanıcı ismini yazdırabiliyoruz
+        {
+            kul = Session["Login"] as Makale_Entities.Kullanici;
+        }
+    }
+
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -61,10 +70,23 @@
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/Home/Giris"><span class="glyphicon glyphicon-log-in">   </span> Giriş</a></li>
-                    <li><a href="/Home/Kayıt"><span class="glyphicon glyphicon-user"></span> Kayıt Ol</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-user">   </span> Umeyr Gülçimen</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-out">   </span> Çıkış</a></li>
+                    @*Session dan gelen bilgiye göre bunlardan ikisi gözükecek*@
+
+                    @{ 
+                        if (kul == null)
+                        {
+                            <li><a href="/Home/Giris"><span class="glyphicon glyphicon-log-in">   </span> Giriş</a></li>
+                            <li><a href="/Home/Kayıt"><span class="glyphicon glyphicon-user"></span> Kayıt Ol</a></li>
+
+                        }
+                        else
+                        {
+                            <li><a href="#"><span class="glyphicon glyphicon-user">   </span> @kul.KullaniciAdi</a></li>
+                            <li><a href="/Home/Cikis"><span class="glyphicon glyphicon-log-out">   </span> Çıkış</a></li>
+                        }
+
+                    }
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
