@@ -59,6 +59,10 @@
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MakaleCommon\MakaleCommon.csproj">
+      <Project>{d60a383d-bcfe-40a3-87b6-af4e566bb2fe}</Project>
+      <Name>MakaleCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MakaleDataAccessLayer\MakaleDataAccessLayer.csproj">
       <Project>{ea601c3c-e0e4-41d9-af3a-b580c0195427}</Project>
       <Name>MakaleDataAccessLayer</Name>

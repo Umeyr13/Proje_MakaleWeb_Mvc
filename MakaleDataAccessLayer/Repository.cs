@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Makale_Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.DependencyResolution;
@@ -31,7 +32,15 @@ namespace MakaleDataAccessLayer
         public int Insert(T nesne)
         {
             _dbSet.Add(nesne);
+            if (nesne is BaseClass)//begeni sınıfı base den kalıtılmadı bu if blogu olmasa patlar çünkü begenide bu field lar yok
+            {
+                BaseClass obj = nesne as BaseClass;//Baseclass tipinde çünkü gelen kullanıcı mı makale mi belli değil ama hepsinde baseclass var
+                DateTime tarih = DateTime.Now; //tarih hepsinde ikisinde olsun diye
+                obj.KayitTarihi = tarih;
+                obj.DegistirmeTarihi = tarih;
+                obj.DegistirenKullanici = "system";
 
+            }
             return db.SaveChanges();
         }
 
@@ -47,7 +56,14 @@ namespace MakaleDataAccessLayer
 
         public int Update(T nesne)
         {
-            return db.SaveChanges(); // neden direk save ettik
+            if (nesne is BaseClass)
+            {
+                BaseClass obj = nesne as BaseClass;              
+                obj.DegistirmeTarihi = DateTime.Now;
+                obj.DegistirenKullanici = "system";
+
+            }
+            return db.SaveChanges();
         }
     }
 }

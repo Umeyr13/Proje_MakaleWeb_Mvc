@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "KayıtBasarili";
+}
+
+<link href="~/Content/login.css" rel="stylesheet" />
+<br />
+<section class="login-info">
+    <div class="container">
+        <div class="row main">
+            <div class="form-header">
+                <h1 class="text-center ">Yönlendirme..</h1>
+            </div>
+            <div class="main-content">
+                <div class="text-success">
+                    <h2>Kayıt Başarılı</h2>
+                    <p class="text-justify">Lütfen e-posta adresininze gönderilen aktivasyon linkine tıklayarak hesabınızı aktifleştiriniz. Makale ve yorum yazmak için hesabınızı aktifleştirmelisiniz.</p>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(function () // sAyfa yüklendiğinde
+    {
+        $("footer").hide(); // $("footer").parent().hide(); footer un parent ini gizle demek. footer ın olduğu div i gizledi.
+
+
+    })
+
+    setTimeout(function () {
+
+        window.location="/Home/Index"
+    },3000 );
+</script>

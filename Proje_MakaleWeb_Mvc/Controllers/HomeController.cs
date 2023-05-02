@@ -13,6 +13,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
     {
         MakaleYonet mYonet = new MakaleYonet();
         KategoriYonet kYonet = new KategoriYonet();
+        KullanıcıYonet KulYonet = new KullanıcıYonet();
         public ActionResult Index()
         {
             Test test = new Test();
@@ -63,19 +64,32 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         public ActionResult Giris()
         {
+
             return View() ;
         }
 
         [HttpPost]
         public ActionResult Giris(LoginModel model)
         {
-            return View();
+            if (ModelState.IsValid) // Girilen bilgiler tamam ise.
+            {
+                MakaleBLLSonuc<Kullanici> sonuc = KulYonet.LoginKontrol(model);
+                if (sonuc.hatalar.Count>0)
+                {
+                    sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));// her bir x hatasını sonuc.hatalara ekle
+                    return View(model);
+                }
+                Session["Login"] = sonuc.nesne;//bulduğu kullanıcıyı kayıt altına almış olduk
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         public ActionResult Kayıt()
         {
             return View();
         }
+            KullanıcıYonet ky = new KullanıcıYonet();
 
         [HttpPost]
         public ActionResult Kayıt(RegisterModel model)
@@ -84,11 +98,10 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             //kayıt işlemi varmı
             //aktivasyon mail i gönderilecek
 
-            KullanıcıYonet ky = new KullanıcıYonet();
 
             if (ModelState.IsValid)
             {
-                MakaleBLLSonuc<Kullanici> sonuc = ky.KullanıcıBul(model);
+                MakaleBLLSonuc<Kullanici> sonuc = ky.KullanıcıKaydet(model);
                 if (sonuc.hatalar.Count>0)
                 {
                     sonuc.hatalar.ForEach(x=>ModelState.AddModelError("",x));
@@ -97,7 +110,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                 else
                 {
                     //database e kaydet
-                    return RedirectToAction("Giris");
+                    return RedirectToAction("KayıtBasarili");
                 }
             }
             return View(model);
@@ -117,7 +130,14 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             //    }
 
             }
-           
+
+        public ActionResult KayıtBasarili ()
+        {
+            return View();
+        }
+
+
+
 
         }
 

@@ -142,6 +142,7 @@
     <Content Include="Views\Home\Hakkımızda.cshtml" />
     <Content Include="Views\Home\Giris.cshtml" />
     <Content Include="Views\Home\Kayıt.cshtml" />
+    <Content Include="Views\Home\KayıtBasarili.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -157,6 +158,10 @@
     <ProjectReference Include="..\MakaleBLL\MakaleBLL.csproj">
       <Project>{aa2b531f-0a1b-434a-b105-60149999d2e3}</Project>
       <Name>MakaleBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakaleCommon\MakaleCommon.csproj">
+      <Project>{d60a383d-bcfe-40a3-87b6-af4e566bb2fe}</Project>
+      <Name>MakaleCommon</Name>
     </ProjectReference>
     <ProjectReference Include="..\Makale_Entities\Makale_Entities.csproj">
       <Project>{1bef20f5-41c8-4cef-ab0e-642a6638dfdf}</Project>
