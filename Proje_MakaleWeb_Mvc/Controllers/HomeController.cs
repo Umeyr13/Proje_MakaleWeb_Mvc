@@ -90,6 +90,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         {
             return View();
         }
+            KullanıcıYonet ky = new KullanıcıYonet();
 
         [HttpPost]
         public ActionResult Kayıt(RegisterModel model)

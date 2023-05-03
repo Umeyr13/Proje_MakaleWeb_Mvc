@@ -101,6 +101,29 @@ namespace MakaleBLL
                 }
             
             }
+            else // eğer database de aynı kullanıcı yoksa buraya gelir.
+            {
+               int islemsonuc = rep_kul.Insert(new Kullanici()
+                {
+                    KullaniciAdi = model.KullaniciAdi
+                   ,Email = model.email
+                   ,Sifre = model.Sifre
+                   ,AktifGuid = Guid.NewGuid()
+                   //Bunları Repository/Insert metot u na taşıyabiliriz...
+                   //,KayitTarihi = DateTime.Now
+                   //,DegistirmeTarihi = DateTime.Now
+                   //,DegistirenKullanici ="system" 
+                });
+                //burada iken aslında sonuc nesnesine birşey atılmamış oldu.
+
+                if (islemsonuc >0) //Insert de hata yoksa mail göner
+                {
+                    sonuc.nesne = rep_kul.Find(x =>x.KullaniciAdi == model.KullaniciAdi || x.Email==model.email );
+                    //Eğer İşlem gerçekleşirse sonuç nesnesi boşkalmasın diye kullanıcıyı içine attık.
+
+                    //Aktivasyon mail i atabiliriz.
+                    
+                   string siteURL = ConfigHelper.Get<string>("SiteRootUri");
 
             return sonuc;//else den gelirse boş nesne gelirdi.
         }
@@ -124,6 +147,7 @@ namespace MakaleBLL
             }
  
             return sonuc;//else den gelirse boş nesne gelirdi.
+
         }
 
 
