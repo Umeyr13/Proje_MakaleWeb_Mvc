@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Makale_Entities;
 
-namespace MakaleBLL // Logic İş Katmanı
+namespace MakaleBLL // busines Logic İş Katmanı
 {
     public class Test
     {
