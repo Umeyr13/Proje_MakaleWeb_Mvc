@@ -144,6 +144,8 @@
     <Content Include="Views\Home\Kayıt.cshtml" />
     <Content Include="Views\Home\KayıtBasarili.cshtml" />
     <Content Include="Views\Home\HesapAktiflestir.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\Profil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

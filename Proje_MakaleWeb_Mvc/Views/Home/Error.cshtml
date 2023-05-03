@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+}
+
+<link href="~/Content/login.css" rel="stylesheet" />
+<br />
+<section class="login-info">
+
+    <div class="container">
+
+        <div class="row main">
+
+            <div class="form-header">
+                <h1 class="text-center "> Yönlendirme..</h1>
+            </div>
+
+            <div class="main-content">
+
+                <div class="text-danger">
+
+                    <h2> <span class="glyphicon glyphicon-remove"></span>Geçersiz İşlem</h2>
+
+                    <p class="text-justify"> 
+                        
+                        @foreach (string item in (List<string>)ViewBag.hatalar )//tür dönüşümü cast işlemi
+                        {
+                            @item <br/>
+
+                        }
+
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script>
+    $(function () // sAyfa yüklendiğinde
+    {
+        $("footer").hide(); // $("footer").parent().hide(); footer un parent ini gizle demek. footer ın olduğu div i gizledi.
+
+
+    })
+</script>
+

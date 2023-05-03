@@ -56,6 +56,11 @@
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Migrations\202304251116193_InitialCreate.cs" />
+    <Compile Include="Migrations\202304251116193_InitialCreate.designer.cs">
+      <DependentUpon>202304251116193_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Singleton.cs" />
@@ -70,6 +75,11 @@
       <Project>{1BEF20F5-41C8-4CEF-AB0E-642A6638DFDF}</Project>
       <Name>Makale_Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202304251116193_InitialCreate.resx">
+      <DependentUpon>202304251116193_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -14,6 +14,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         MakaleYonet mYonet = new MakaleYonet();
         KategoriYonet kYonet = new KategoriYonet();
         KullanıcıYonet KulYonet = new KullanıcıYonet();
+        KullanıcıYonet ky = new KullanıcıYonet();
         public ActionResult Index()
         {
             Test test = new Test();
@@ -89,7 +90,6 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         {
             return View();
         }
-            KullanıcıYonet ky = new KullanıcıYonet();
 
         [HttpPost]
         public ActionResult Kayıt(RegisterModel model)
@@ -133,7 +133,8 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         public ActionResult Cikis()
         {
-            Session["login"] = null;
+           // Session["login"] = null;
+           Session.Clear();
             return RedirectToAction("Index");
         }
 
@@ -142,19 +143,46 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return View();
         }
 
-
         public ActionResult HesapAktiflestir(Guid id)//Appstart/RouteConfig de yazan url: "{controller}/{action}/{id}",//burada id yazdığı için id aldık home controller da
         {
             MakaleBLLSonuc<Kullanici> sonuc = KulYonet.ActivateUser(id);
             if (sonuc.hatalar.Count>0)
             {
                 TempData["hatalar"] = sonuc.hatalar;
-                return RedirectToAction("activateError");
+                return RedirectToAction("Error");
             }
 
             return View();
         }
 
+        public ActionResult Error()
+        {
+            List<string> errors = new List<string>();
+
+            if (TempData["hatalar"] != null)
+            {
+                ViewBag.hatalar = TempData["hatalar"]; 
+
+            }
+            else
+            {
+                ViewBag.hatalar = errors;
+            }
+            return View();
+        }
+
+        public ActionResult Profil()
+        {
+            Kullanici kullanici = Session["Login"] as Kullanici;
+           MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullanıcıBul(kullanici.Id);
+            if (sonuc.hatalar.Count>0)
+            {
+                TempData["hatalar"] = sonuc.hatalar;
+                return RedirectToAction("Error");
+
+            }
+            return View();
+        }
 
     }
 

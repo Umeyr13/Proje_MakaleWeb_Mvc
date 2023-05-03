@@ -39,6 +39,19 @@ namespace MakaleBLL
             return sonuc;
         }
 
+        public MakaleBLLSonuc<Kullanici> KullanıcıBul(int id)
+        {
+            MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
+            sonuc.nesne = rep_kul.Find(x=>x.Id== id);
+
+            if (sonuc.nesne==null)
+            {
+                sonuc.hatalar.Add("Kullanıcı bulunamadı");
+            }
+
+            return sonuc;
+        }
+
         public MakaleBLLSonuc<Kullanici> KullanıcıKaydet(RegisterModel model)
         {
             MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
@@ -109,9 +122,11 @@ namespace MakaleBLL
                     sonuc.hatalar.Add("Aktifleştirilmedi ");
                 }
             }
-            return sonuc;
-
+ 
+            return sonuc;//else den gelirse boş nesne gelirdi.
         }
+
+
 
 
     }
