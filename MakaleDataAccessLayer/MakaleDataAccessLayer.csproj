@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202304251116193_InitialCreate.designer.cs">
       <DependentUpon>202304251116193_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305031050563_KullaniciTableAddProfilResim.cs" />
+    <Compile Include="Migrations\202305031050563_KullaniciTableAddProfilResim.designer.cs">
+      <DependentUpon>202305031050563_KullaniciTableAddProfilResim.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
@@ -79,6 +83,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202304251116193_InitialCreate.resx">
       <DependentUpon>202304251116193_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305031050563_KullaniciTableAddProfilResim.resx">
+      <DependentUpon>202305031050563_KullaniciTableAddProfilResim.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
