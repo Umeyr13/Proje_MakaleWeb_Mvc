@@ -124,7 +124,6 @@ namespace MakaleBLL
             }
  
             return sonuc;//else den gelirse boş nesne gelirdi.
-
         }
 
 
