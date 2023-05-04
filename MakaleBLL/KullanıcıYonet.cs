@@ -42,9 +42,9 @@ namespace MakaleBLL
         public MakaleBLLSonuc<Kullanici> KullaniciUpdate(Kullanici model)
         {
             MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
-            
-          Kullanici temp =  rep_kul.Find(x=>x.KullaniciAdi ==model.KullaniciAdi || x.Email==model.Email );
-            if (temp !=null && temp.Id != model.Id)
+
+            Kullanici temp = rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email == model.Email);
+            if (temp != null || temp.Id != model.Id)
             {
                 if (temp.Email == model.Email)
                 {

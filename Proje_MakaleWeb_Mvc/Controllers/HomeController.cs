@@ -194,6 +194,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                 TempData["hatalar"] = sonuc.hatalar;
                 return RedirectToAction("Error");
             }
+
             return View(sonuc.nesne);
         }
 

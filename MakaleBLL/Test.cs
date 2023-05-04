@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Makale_Entities;
+
 
 namespace MakaleBLL // busines Logic İş Katmanı
 {
