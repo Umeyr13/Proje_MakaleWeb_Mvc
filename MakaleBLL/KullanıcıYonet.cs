@@ -39,39 +39,53 @@ namespace MakaleBLL
             return sonuc;
         }
 
+            MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
         public MakaleBLLSonuc<Kullanici> KullaniciUpdate(Kullanici model)
         {
-            MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
-            
-          Kullanici temp =  rep_kul.Find(x=>x.KullaniciAdi ==model.KullaniciAdi || x.Email==model.Email );
-            if (temp !=null && temp.Id != model.Id)
-            {
-                if (temp.Email == model.Email)
-                {
-                    sonuc.hatalar.Add("Bu Mail adresi daha önce kaydedilmiş..");
-                }
-                if (temp.KullaniciAdi == model.KullaniciAdi)
-                {
-                    sonuc.hatalar.Add("Kullanıcı adı daha önce kaydedilmiş..");
-                }
 
+            sonuc = KullanıcıKontrol(model);
+            if (sonuc.hatalar.Count>0)
+            {
+                sonuc.nesne = model;
+                return sonuc;
             }
             else
             {
-                sonuc.nesne = rep_kul.Find(x =>x.Id == model.Id); // x i bul data base den. x ne al x de bu == model.id
-                sonuc.nesne.Ad=model.Ad;
+                sonuc.nesne = rep_kul.Find(x => x.Id == model.Id); // x i bul data base den. x ne al x de bu == model.id
+                sonuc.nesne.Ad = model.Ad;
                 sonuc.nesne.Soyad = model.Soyad;
-                sonuc.nesne.Email= model.Email;
-                sonuc.nesne.KullaniciAdi= model.KullaniciAdi;
-                sonuc.nesne.Sifre= model.Sifre;
-                sonuc.nesne.ProfilResimDosyaAdi=model.ProfilResimDosyaAdi;
+                sonuc.nesne.Email = model.Email;
+                sonuc.nesne.KullaniciAdi = model.KullaniciAdi;
+                sonuc.nesne.Sifre = model.Sifre;
+                sonuc.nesne.ProfilResimDosyaAdi = model.ProfilResimDosyaAdi;
                 // sonuc.nesne.DegistirmeTarihi Repository class ında bu veriler zaten güncellenecek...
-                if (rep_kul.Update(sonuc.nesne)<1) // db.SaveChanges gittiği yerde var.
+                if (rep_kul.Update(sonuc.nesne) < 1) // db.SaveChanges gittiği yerde var.
                 {
                     sonuc.hatalar.Add("Profil bilgileri güncellenemedi");
                 }
             }
 
+            return sonuc;
+        }
+
+        private MakaleBLLSonuc<Kullanici> KullanıcıKontrol(Kullanici model)
+        {
+            //Kullanici temp = rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email == model.Email);
+
+                Kullanici k1 = rep_kul.Find(x=>x.Email == model.Email);
+                Kullanici k2 = rep_kul.Find(x=>x.KullaniciAdi == model.KullaniciAdi);
+
+            if (k1 != null && k1.Id != model.Id)
+            {             
+                    sonuc.hatalar.Add("Bu Mail adresi daha önce kaydedilmiş..");             
+            }
+
+            if (k2 != null && k2.Id != model.Id)
+            {
+                    sonuc.hatalar.Add("Kullanıcı adı daha önce kaydedilmiş..");
+            }
+
+            sonuc.nesne = model;
             return sonuc;
         }
 
@@ -93,7 +107,7 @@ namespace MakaleBLL
             MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
             Kullanici k =rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email==model.email);
             sonuc.nesne = k;
-            if (sonuc.nesne!=null)
+            if (sonuc.nesne!=null )
             {
                 if (sonuc.nesne.KullaniciAdi== model.KullaniciAdi)
                 {

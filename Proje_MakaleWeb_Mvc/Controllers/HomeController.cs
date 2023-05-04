@@ -194,6 +194,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                 TempData["hatalar"] = sonuc.hatalar;
                 return RedirectToAction("Error");
             }
+
             return View(sonuc.nesne);
         }
 
@@ -211,7 +212,12 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     kullanici.ProfilResimDosyaAdi = dosya;//resmin ismini o anki kullanıcıya tanımladık
                 }
 
-                KulYonet.KullaniciUpdate(kullanici);
+              MakaleBLLSonuc<Kullanici> sonuc =  KulYonet.KullaniciUpdate(kullanici);
+                if (sonuc.hatalar.Count>0)
+                {
+                    sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));
+                    return View(kullanici);
+                }
             }
             return View(kullanici);
         }
