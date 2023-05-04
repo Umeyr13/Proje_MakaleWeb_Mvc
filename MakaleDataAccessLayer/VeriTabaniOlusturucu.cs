@@ -35,6 +35,8 @@ namespace MakaleDataAccessLayer
                 DegistirmeTarihi = DateTime.Now.AddMinutes(5)
                 ,
                 DegistirenKullanici = "Umeyr"
+                ,
+                ProfilResimDosyaAdi= "user_1.jpg"
 
             };
 
