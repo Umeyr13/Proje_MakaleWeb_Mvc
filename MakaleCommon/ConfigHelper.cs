@@ -9,7 +9,7 @@ namespace MakaleCommon
 {
     public class ConfigHelper
     {
-        public static T Get<T>(string key)
+        public static T Gettir<T>(string key) //web config deki bilgileri okuyor
         {
             return (T)Convert.ChangeType(ConfigurationManager.AppSettings[key], typeof(T)); //web.config de yazdıklarımızı okuması için bunu yazıyoruz bunu da mail helperda yazıyoruz orada getirsin diye
         }

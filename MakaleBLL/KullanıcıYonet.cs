@@ -39,6 +39,42 @@ namespace MakaleBLL
             return sonuc;
         }
 
+        public MakaleBLLSonuc<Kullanici> KullaniciUpdate(Kullanici model)
+        {
+            MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
+            
+          Kullanici temp =  rep_kul.Find(x=>x.KullaniciAdi ==model.KullaniciAdi || x.Email==model.Email );
+            if (temp !=null && temp.Id != model.Id)
+            {
+                if (temp.Email == model.Email)
+                {
+                    sonuc.hatalar.Add("Bu Mail adresi daha önce kaydedilmiş..");
+                }
+                if (temp.KullaniciAdi == model.KullaniciAdi)
+                {
+                    sonuc.hatalar.Add("Kullanıcı adı daha önce kaydedilmiş..");
+                }
+
+            }
+            else
+            {
+                sonuc.nesne = rep_kul.Find(x =>x.Id == model.Id); // x i bul data base den. x ne al x de bu == model.id
+                sonuc.nesne.Ad=model.Ad;
+                sonuc.nesne.Soyad = model.Soyad;
+                sonuc.nesne.Email= model.Email;
+                sonuc.nesne.KullaniciAdi= model.KullaniciAdi;
+                sonuc.nesne.Sifre= model.Sifre;
+                sonuc.nesne.ProfilResimDosyaAdi=model.ProfilResimDosyaAdi;
+                // sonuc.nesne.DegistirmeTarihi Repository class ında bu veriler zaten güncellenecek...
+                if (rep_kul.Update(sonuc.nesne)<1) // db.SaveChanges gittiği yerde var.
+                {
+                    sonuc.hatalar.Add("Profil bilgileri güncellenemedi");
+                }
+            }
+
+            return sonuc;
+        }
+
         public MakaleBLLSonuc<Kullanici> KullanıcıBul(int id)
         {
             MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
@@ -86,12 +122,12 @@ namespace MakaleBLL
 
                 if (islemsonuc >0) //Insert de hata yoksa mail göner
                 {
-                    sonuc.nesne = rep_kul.Find(x =>x.KullaniciAdi == model.KullaniciAdi || x.Email==model.email );
+                    sonuc.nesne = rep_kul.Find(x =>x.KullaniciAdi == model.KullaniciAdi && x.Email==model.email );
                     //Eğer İşlem gerçekleşirse sonuç nesnesi boşkalmasın diye kullanıcıyı içine attık.
 
                     //Aktivasyon mail i atabiliriz.
                     
-                   string siteURL = ConfigHelper.Get<string>("SiteRootUri");
+                   string siteURL = ConfigHelper.Gettir<string>("SiteRootUri");
 
                     string aktiveUrl = $"{siteURL}/Home/HesapAktiflestir/{sonuc.nesne.AktifGuid}";
                     string body = $"Merhaba {sonuc.nesne.Ad} {sonuc.nesne.Soyad} <br /> Hesabınızı aktifleştirmek için " +

@@ -172,7 +172,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return View();
         }
 
-        public ActionResult Profil()
+        public ActionResult ProfilGoster()
         {
             Kullanici kullanici = Session["Login"] as Kullanici;
            MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullanıcıBul(kullanici.Id);
@@ -182,9 +182,39 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                 return RedirectToAction("Error");
 
             }
-            return View();
+            return View(sonuc.nesne);
         }
 
+        public ActionResult ProfilDegistir()
+        {
+           Kullanici nesne = Session["Login"] as Kullanici;
+            MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullanıcıBul(nesne.Id);
+            if (sonuc.hatalar.Count >0)
+            {
+                TempData["hatalar"] = sonuc.hatalar;
+                return RedirectToAction("Error");
+            }
+            return View(sonuc.nesne);
+        }
+
+        [HttpPost]
+        public ActionResult ProfilDegistir(Kullanici kullanici, HttpPostedFileBase profilresmidegeldi)
+        {
+            ModelState.Remove("DegistirenKullanici"); // aşağıda hata vermesin diye bunu model state den sildik. Artık bu değer boş iken de model isValid oldu
+            if (ModelState.IsValid)//Değiştiren kullanıcıyı burada vermediğimiz için kesin hata verir idi.(Değiştiren kullanıcı boş geçilemez hatası)
+            {
+                if (profilresmidegeldi != null && (profilresmidegeldi.ContentType=="image/jpg" || profilresmidegeldi.ContentType =="image/png" || profilresmidegeldi.ContentType=="image/jpeg" ) )
+                {
+                    string dosya = $"user_{kullanici.Id}.{profilresmidegeldi.ContentType.Split('/')[1]}";// "/" işaretine göre parçala 1. indextekini getir dedik.
+
+                    profilresmidegeldi.SaveAs ( Server.MapPath($"~/resim/{dosya}") ); // girilen resmi uygulama klasörüne kaydettik
+                    kullanici.ProfilResimDosyaAdi = dosya;//resmin ismini o anki kullanıcıya tanımladık
+                }
+
+                KulYonet.KullaniciUpdate(kullanici);
+            }
+            return View(kullanici);
+        }
     }
 
     

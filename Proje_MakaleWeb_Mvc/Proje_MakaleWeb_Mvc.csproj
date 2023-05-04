@@ -16,7 +16,7 @@
     <AssemblyName>Proje_MakaleWeb_Mvc</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44319</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -102,6 +102,7 @@
     <Content Include="Content\login.css" />
     <Content Include="Content\shop-homepage.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\validationCss.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -112,6 +113,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Resim\user_1_.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
@@ -145,7 +147,8 @@
     <Content Include="Views\Home\KayıtBasarili.cshtml" />
     <Content Include="Views\Home\HesapAktiflestir.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\Home\Profil.cshtml" />
+    <Content Include="Views\Home\ProfilGoster.cshtml" />
+    <Content Include="Views\Home\ProfilDegistir.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

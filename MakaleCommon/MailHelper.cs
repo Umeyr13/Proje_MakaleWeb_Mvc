@@ -22,7 +22,7 @@ namespace MakaleCommon
             try
             {
                 var message = new MailMessage();
-                message.From = new MailAddress(ConfigHelper.Get<string>("MailUser"));
+                message.From = new MailAddress(ConfigHelper.Gettir<string>("MailUser"));
 
                 to.ForEach(x =>
                 {
@@ -34,14 +34,14 @@ namespace MakaleCommon
                 message.IsBodyHtml = isHtml;
 
                 using (var smtp = new SmtpClient(
-                    ConfigHelper.Get<string>("MailHost"),
-                    ConfigHelper.Get<int>("MailPort")))
+                    ConfigHelper.Gettir<string>("MailHost"),
+                    ConfigHelper.Gettir<int>("MailPort")))
                 {
                     smtp.EnableSsl = true;
                     smtp.Credentials =
                         new NetworkCredential(
-                            ConfigHelper.Get<string>("MailUser"),
-                            ConfigHelper.Get<string>("MailPass"));
+                            ConfigHelper.Gettir<string>("MailUser"),
+                            ConfigHelper.Gettir<string>("MailPass"));
 
                     smtp.Send(message);
                     result = true;

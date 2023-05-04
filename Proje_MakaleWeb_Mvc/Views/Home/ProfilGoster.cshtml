@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Profil";
+}
+
+@model Makale_Entities.Kullanici
+    
+<div class="container">
+    <div class="row">
+        <h2>@ViewBag.Title</h2>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <img src="~/Resim/@Model.ProfilResimDosyaAdi" width="130" height="130" />
+
+        </div>
+        <div class="col-md-5">
+            <h3>@(Model.Ad +" " + Model.Soyad)</h3>
+            <br />
+            <h4><b>Email: </b>@Model.Email</h4>
+            <br />
+            <h4><b>Kullanıcı Adı: </b>@Model.KullaniciAdi</h4>
+        </div>
+        <h3></h3>
+        <div class="col-md-4">
+
+          
+            <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Değiştir <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/Home/ProfilDegistir"><span class="glyphicon glyphicon-edit">&nbsp;</span>Güncelle</a></li>
+
+                    <li><a href="/Home/ProfilSil" onclick="return confirm('Silmek İstediğinize emin misiniz?')"><span class="glyphicon glyphicon-trash">&nbsp;</span> Sil</a></li>
+              
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
