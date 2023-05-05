@@ -17,8 +17,23 @@ namespace MakaleBLL
         }
 
         public Kategori KategoriBul(int id) 
-            {
+        {
                 return rep_kat.Find(x=>x.Id==id);
-            }
+        }
+
+        public Kategori KategoriEkle(Kategori model)
+        {
+            return model;
+        }
+
+        public Kategori KategoriUpdate(Kategori model)
+        {
+            return model;
+        }
+
+        public void KategoriSil(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
