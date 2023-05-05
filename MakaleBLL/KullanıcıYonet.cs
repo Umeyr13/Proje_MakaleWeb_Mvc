@@ -42,6 +42,22 @@ namespace MakaleBLL
             MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
         public MakaleBLLSonuc<Kullanici> KullaniciUpdate(Kullanici model)
         {
+            #region Hatalı Kod Çözüldü
+            /* Buradaki */
+            //Kullanici temp = rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email == model.Email);
+            //if (temp != null && temp.Id != model.Id)
+            //{
+            //    if (temp.Email == model.Email)
+            //    {
+            //        sonuc.hatalar.Add("Bu Mail adresi daha önce kaydedilmiş..");
+            //    }
+            //    if (temp.KullaniciAdi == model.KullaniciAdi)
+            //    {
+            //        sonuc.hatalar.Add("Kullanıcı adı daha önce kaydedilmiş..");
+            //    }
+
+            //}
+            #endregion
 
             sonuc = KullanıcıKontrol(model);
             if (sonuc.hatalar.Count>0)
@@ -70,7 +86,7 @@ namespace MakaleBLL
 
         private MakaleBLLSonuc<Kullanici> KullanıcıKontrol(Kullanici model)
         {
-            //Kullanici temp = rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email == model.Email);
+          
 
                 Kullanici k1 = rep_kul.Find(x=>x.Email == model.Email);
                 Kullanici k2 = rep_kul.Find(x=>x.KullaniciAdi == model.KullaniciAdi);
