@@ -6,13 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using Makale_Entities;
 using Makale_Entities.ViewModel;
+using MakaleCommon;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
     public class HomeController : Controller
     {
         MakaleYonet mYonet = new MakaleYonet();
-        KategoriYonet kYonet = new KategoriYonet();
+        KategoriYonet KatYonet = new KategoriYonet();
         KullanıcıYonet KulYonet = new KullanıcıYonet();
         KullanıcıYonet ky = new KullanıcıYonet();
         public ActionResult Index()
@@ -44,7 +45,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
 
-            Kategori secKat = kYonet.KategoriBul(id.Value);//null olmasına izin verdiğimiz için direk "id" yi değilde id.value yazmamızı istedi
+            Kategori secKat = KatYonet.KategoriBul(id.Value);//null olmasına izin verdiğimiz için direk "id" yi değilde id.value yazmamızı istedi
             return View("Index",secKat.Makaleler);
         }
 
@@ -81,6 +82,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     return View(model);
                 }
                 Session["Login"] = sonuc.nesne;//bulduğu kullanıcıyı kayıt altına almış olduk
+                Uygulama.login = sonuc.nesne.KullaniciAdi;
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -204,6 +206,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             ModelState.Remove("DegistirenKullanici"); // aşağıda hata vermesin diye bunu model state den sildik. Artık bu değer boş iken de model isValid oldu
             if (ModelState.IsValid)//Değiştiren kullanıcıyı burada vermediğimiz için kesin hata verir idi.(Değiştiren kullanıcı boş geçilemez hatası)
             {
+
                 if (profilresmidegeldi != null && (profilresmidegeldi.ContentType=="image/jpg" || profilresmidegeldi.ContentType =="image/png" || profilresmidegeldi.ContentType=="image/jpeg" ) )
                 {
                     string dosya = $"user_{kullanici.Id}.{profilresmidegeldi.ContentType.Split('/')[1]}";// "/" işaretine göre parçala 1. indextekini getir dedik.
@@ -212,14 +215,41 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     kullanici.ProfilResimDosyaAdi = dosya;//resmin ismini o anki kullanıcıya tanımladık
                 }
 
-              MakaleBLLSonuc<Kullanici> sonuc =  KulYonet.KullaniciUpdate(kullanici);
+                Uygulama.login = kullanici.KullaniciAdi;//yeni gelen kullanıcı adını değiştiren kullanıcı adı olarak atadık
+                MakaleBLLSonuc<Kullanici> sonuc =  KulYonet.KullaniciUpdate(kullanici);
+
                 if (sonuc.hatalar.Count>0)
                 {
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));
                     return View(kullanici);
                 }
+
+                //profldeğişti ise 
+                Session["Login"] =sonuc.nesne; //güncel kullanıcı bilgisi
+                //Uygulama.login = sonuc.nesne.KullaniciAdi; Bu burada olursa değiştiren kullanıcı ismi eski kullanıcı ismi olarak ayarlanır. Yukarıda olması daha mantıklı geldi.
+                return RedirectToAction("ProfilGoster");
             }
-            return View(kullanici);
+            else
+            {
+                return View(kullanici);
+
+            }
+
+        }
+
+        public ActionResult ProfilSil()
+        {
+            Kullanici kullanici = Session["Login"] as Kullanici;
+
+           MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullaniciSil(kullanici.Id);
+            if (sonuc.hatalar.Count>1)
+            {
+                //profil sil in kendi View i olamdığı için error sayfasına yönlendiriyoruz
+                TempData["hatalar"] =sonuc.hatalar;
+                return RedirectToAction("Error");
+            }
+            Session.Clear();//Bellekten de sildik kullanıcıyı
+            return RedirectToAction("Index");
         }
     }
 

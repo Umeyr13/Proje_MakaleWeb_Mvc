@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.SqlServer;
 
 namespace MakaleBLL
 {
@@ -121,20 +122,35 @@ namespace MakaleBLL
         public MakaleBLLSonuc<Kullanici> KullanıcıKaydet(RegisterModel model)
         {
             MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
-            Kullanici k =rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email==model.email);
-            sonuc.nesne = k;
-            if (sonuc.nesne!=null )
-            {
-                if (sonuc.nesne.KullaniciAdi== model.KullaniciAdi)
-                {
-                    sonuc.hatalar.Add("Bu kullanıcı adı sisteme kayıtlı");
-                }
-                else if (sonuc.nesne.Email == model.email)
-                {
-                    sonuc.hatalar.Add("Bu Email sistemde kayıtlı");
+            Kullanici nesne = new Kullanici();
+            nesne.KullaniciAdi = model.KullaniciAdi;
+            nesne.Email = model.email;
+            //nesne.ProfilResimDosyaAdi= Microsoft.SqlServer.Server.MapPath("sd"); deneme
 
-                }
+            sonuc = KullanıcıKontrol(nesne);
+            if (sonuc.hatalar.Count > 0)
+            {
+                sonuc.nesne = nesne;
+                return sonuc;
             }
+
+            #region Aynı anda hem kullanıcı adı hemde email sistemde daha önceden kayıtlı ise sadece biri için uyarı verme hatası vardı
+            //Kullanici k =rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email==model.email);
+            //sonuc.nesne = k;
+            //if (sonuc.nesne!=null)
+            //{
+            //    if (sonuc.nesne.KullaniciAdi== model.KullaniciAdi)
+            //    {
+            //        sonuc.hatalar.Add("Bu kullanıcı adı sisteme kayıtlı");
+            //    }
+            //    else if (sonuc.nesne.Email == model.email)
+            //    {
+            //        sonuc.hatalar.Add("Bu Email sistemde kayıtlı");
+
+            //    }
+            //}
+            #endregion 
+
             else // eğer database de aynı kullanıcı yoksa buraya gelir.
             {
                int islemsonuc = rep_kul.Insert(new Kullanici()
@@ -192,8 +208,23 @@ namespace MakaleBLL
             return sonuc;//else den gelirse boş nesne gelirdi.
         }
 
+        public MakaleBLLSonuc<Kullanici> KullaniciSil(int id)
+        {
+            Kullanici kullanici = rep_kul.Find(x =>x.Id == id);
+            if (kullanici != null)
+            {
+                if (rep_kul.Delete(kullanici)<1) //işlem başarılı ise bir döner 
+                {
+                    sonuc.hatalar.Add("Kullanıcı Silinemedi");
+                }
+            }
 
+            else
+            {
+                sonuc.hatalar.Add("Kullanıcı bulunamadı");
+            }
 
-
+            return sonuc;
+        }
     }
 }

@@ -10,14 +10,14 @@
         <hr />
     </div>
     <div class="row">
-      @using (Html.BeginForm("ProfilDegistir","Home",FormMethod.Post,new {enctype ="multipart/form-data"}))
-          //bunu yazarak profil resmini göndermiş oluyoruz değiştirmek için
-      { 
-          
+        @using (Html.BeginForm("ProfilDegistir", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        //bunu yazarak profil resmini göndermiş oluyoruz değiştirmek için
+        {
+
             <div class="form-horizontal">
 
                 <div class="col-md-3">
-                    @Html.HiddenFor(x =>x.ProfilResimDosyaAdi) @*resim dosyasını da model ile post edelim ki sayfayı yenileyince boş gözükmesin*@
+                    @Html.HiddenFor(x => x.ProfilResimDosyaAdi) @*resim dosyasını da model ile post edelim ki sayfayı yenileyince boş gözükmesin*@
                     <img src="~/Resim/@Model.ProfilResimDosyaAdi" width="130" height="130" />
                     <br />
                     <input type="file" name="profilresmidegeldi" class="form-control" />  @*Yeni seçilen resmi post ettik*@
@@ -99,7 +99,12 @@
 
             </div>
 
-       }
+        }
     </div>
-      
+
 </div>
+
+@section footer{
+    @Html.Partial("_PartialPageFooter")
+
+}

@@ -11,7 +11,7 @@ namespace MakaleBLL
         public T nesne { get; set; }
         public List<string> hatalar { get; set; }
 
-        public MakaleBLLSonuc() 
+        public MakaleBLLSonuc() //new ile örneklemessek hata verirdi.
             {
                 hatalar = new List<string>();
             }

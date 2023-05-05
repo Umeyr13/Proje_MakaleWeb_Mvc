@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using MakaleCommon;
 
 namespace MakaleDataAccessLayer
 {
@@ -38,7 +39,8 @@ namespace MakaleDataAccessLayer
                 DateTime tarih = DateTime.Now; //tarih hepsinde ikisinde olsun diye
                 obj.KayitTarihi = tarih;
                 obj.DegistirmeTarihi = tarih;
-                obj.DegistirenKullanici = "system";
+                obj.DegistirenKullanici = Uygulama.login;
+
 
             }
             return db.SaveChanges();
@@ -60,7 +62,7 @@ namespace MakaleDataAccessLayer
             {
                 BaseClass obj = nesne as BaseClass;              
                 obj.DegistirmeTarihi = DateTime.Now;
-                obj.DegistirenKullanici = "system";
+                obj.DegistirenKullanici = Uygulama.login;
 
             }
             return db.SaveChanges();

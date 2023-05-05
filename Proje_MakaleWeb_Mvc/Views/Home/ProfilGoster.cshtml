@@ -4,7 +4,7 @@
 }
 
 @model Makale_Entities.Kullanici
-    
+
 <div class="container">
     <div class="row">
         <h2>@ViewBag.Title</h2>
@@ -25,7 +25,7 @@
         <h3></h3>
         <div class="col-md-4">
 
-          
+
             <div class="btn-group">
                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Değiştir <span class="caret"></span>
@@ -34,7 +34,7 @@
                     <li><a href="/Home/ProfilDegistir"><span class="glyphicon glyphicon-edit">&nbsp;</span>Güncelle</a></li>
 
                     <li><a href="/Home/ProfilSil" onclick="return confirm('Silmek İstediğinize emin misiniz?')"><span class="glyphicon glyphicon-trash">&nbsp;</span> Sil</a></li>
-              
+
                 </ul>
             </div>
         </div>
@@ -42,3 +42,8 @@
     </div>
 
 </div>
+
+@section footer{
+    @Html.Partial("_PartialPageFooter")
+
+}
