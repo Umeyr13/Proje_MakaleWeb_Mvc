@@ -6,14 +6,14 @@
 <link href="~/Content/validationCss.css" rel="stylesheet" />
 <div class="row col-md-10 col-md-offset-1">
 
-    <h2>Edit</h2>
+    <h2>Kategori Düzenle</h2>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Kategori</h4>
+      
             <hr />
             @Html.ValidationSummary(false)
             @Html.HiddenFor(model => model.Id)

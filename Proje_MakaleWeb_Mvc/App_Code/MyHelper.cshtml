@@ -1,0 +1,6 @@
+﻿@helper LinkButton(string url,string id, string color,string btncss,string icon, string text)
+    {
+        //string url = "/" + controler + "/" + action + "/" + _id;
+        <a href="@url" id="@id" name="@id" class="btn btn-@color @btncss"><span class="glyphicon glyphicon-@icon"></span>@text</a>
+    
+    }
