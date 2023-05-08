@@ -27,7 +27,7 @@ namespace Makale_Entities
         [Required, StringLength(20),DisplayName("Şifre: ")]
         public string Sifre { get; set; }
 
-        [StringLength(30)]
+        [StringLength(30),ScaffoldColumn(false)] // ScaffoldColumn(false) bu demek db de ilk başta oluşturma demek.
         public string ProfilResimDosyaAdi { get; set; }
 
         public bool aktif { get; set; }

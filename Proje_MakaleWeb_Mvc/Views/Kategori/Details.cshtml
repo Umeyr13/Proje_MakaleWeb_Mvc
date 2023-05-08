@@ -4,12 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Kategori</h4>
+    <div class="row col-md-10 col-md-offset-1">
+
+    <h4>Kategori Detay</h4>
     <hr />
-    <dl class="dl-horizontal">
+       <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Baslik)
         </dt>
@@ -51,8 +51,11 @@
         </dd>
 
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+       
+       <p>
+    @Html.ActionLink("Kaydet", "Edit", new { id = Model.Id },new {@class="btn btn-success small"})
+    @Html.ActionLink("Kategoriler", "Index",null,new {@class ="btn btn-warning small"})
 </p>
+
+    </div>
+</div>

@@ -11,114 +11,106 @@ using MakaleBLL;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
-    public class KategoriController : Controller
+    public class KullaniciController : Controller
     {
-      KategoriYonet KatYonet = new KategoriYonet();
+        KullanıcıYonet KulY = new KullanıcıYonet();
+        MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
+        
 
-        // GET: Kategori
+        // GET: Kullanici
         public ActionResult Index()
         {
-            return View(KatYonet.Listele());
+            return View(KulY.KUllaniciListesi());
         }
 
-        // GET: Kategori/Details/5
+        // GET: Kullanici/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kategori kategori = KatYonet.KategoriBul(id.Value);
-            if (kategori == null)
+            sonuc  = KulY.KullanıcıBul(id.Value);
+            if (sonuc.nesne == null)
             {
                 return HttpNotFound();
             }
-            return View(kategori);
+            return View(sonuc.nesne);
         }
 
-        // GET: Kategori/Create
+        // GET: Kullanici/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Kategori/Create
+        // POST: Kullanici/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Kategori kategori)
+        public ActionResult Create(Kullanici kullanici)
         {
-            ModelState.Remove("DegistirenKullanici");
             if (ModelState.IsValid)
             {
-                MakaleBLLSonuc<Kategori> sonuc = KatYonet.KategoriEkle(kategori);
-                if (sonuc.hatalar.Count>0)
-                {
-                    sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));
-                    return View(kategori);
-                }
+                KulY.KullanıcıKaydet(kullanici);              
                 return RedirectToAction("Index");
             }
 
-            return View(kategori);
+            return View(kullanici);
         }
 
-        // GET: Kategori/Edit/5
+        // GET: Kullanici/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kategori kategori = KatYonet.KategoriBul( id.Value);
-            if (kategori == null)
+            sonuc = KulY.KullanıcıBul(id.Value);
+            if (sonuc.nesne == null)
             {
                 return HttpNotFound();
             }
-            return View(kategori);
+            return View(sonuc.nesne);
         }
 
-        // POST: Kategori/Edit/5
+        // POST: Kullanici/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Kategori kategori)
+        public ActionResult Edit( Kullanici kullanici)
         {
-            ModelState.Remove("DegistirenKullanici");
             if (ModelState.IsValid)
             {
-                MakaleBLLSonuc<Kategori> sonuc=KatYonet.KategoriUpdate(kategori);
-                if (sonuc.hatalar.Count > 0)
-                {
-                    sonuc.hatalar.ForEach(x => ModelState.AddModelError("", x));
-                    return View(kategori);
-                }
+                 KulY.KullaniciUpdate(kullanici);
                 return RedirectToAction("Index");
+                //foreach ile validation a hatalar eklenmeli.
             }
-            return View(kategori);
+            return View(kullanici);
         }
 
-        // GET: Kategori/Delete/5
+        // GET: Kullanici/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kategori kategori = KatYonet.KategoriBul(id.Value);
-            if (kategori == null)
+                sonuc = KulY.KullanıcıBul(id.Value);
+            if (sonuc.nesne == null)
             {
                 return HttpNotFound();
             }
-            return View(kategori);
+            return View(sonuc.nesne);
         }
 
-        // POST: Kategori/Delete/5
+        // POST: Kullanici/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {           
-            KatYonet.KategoriSil(id);            
+        {
+            sonuc  = KulY.KullaniciSil(id);
+       
             return RedirectToAction("Index");
         }
 

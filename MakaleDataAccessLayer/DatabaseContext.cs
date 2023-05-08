@@ -21,5 +21,18 @@ namespace MakaleDataAccessLayer
             Database.SetInitializer(new VeriTabaniOlusturucu()); //buradan veri  tabanı sınıfını tetikleyip orada da veri tabanını oluşmasını bekliyoruz.
         }
 
+        //Katagori silmenin düer yolu
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        ////database oluşurken cascade özelliğini açıyoruz...
+        //{ 
+        //    //kategorinin makalelerini de sil ki kategoriyi silebilesin
+        //    modelBuilder.Entity<Kategori>().HasMany(k => k.Makaleler).WithRequired(x => x.Kategori).WillCascadeOnDelete(true);
+
+        //   // Eğer adam bu kategoriyi silmeye çalışırsa bilki  kategorinin makalelerinin yorumları var. Kategoriyi silmek için makaleleri ve yorumları silmek istiyeceksin evet yorumları silebilirsin.
+        //    modelBuilder.Entity<Makale>().HasMany(m => m.Yorumlar).WithRequired(x =>x.Makale).WillCascadeOnDelete(true);
+        //    // ve evet silmek istediğin kategorilerin makalelerinin begenilerini de silebilirsin
+        //    modelBuilder.Entity<Makale>().HasMany(m => m.Begeniler).WithRequired(x => x.Makale).WillCascadeOnDelete(true);
+        //}
     }
 }

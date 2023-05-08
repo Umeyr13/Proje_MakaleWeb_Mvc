@@ -118,7 +118,10 @@ namespace MakaleBLL
 
             return sonuc;
         }
-
+        public void KullanıcıKaydet(Kullanici kullanici) // yönetici kişi için bu metot kullanılacak.
+        {
+            // yazılacak...
+        }
         public MakaleBLLSonuc<Kullanici> KullanıcıKaydet(RegisterModel model)
         {
             MakaleBLLSonuc<Kullanici> sonuc = new MakaleBLLSonuc<Kullanici>();
@@ -226,5 +229,13 @@ namespace MakaleBLL
 
             return sonuc;
         }
+
+        public List<Kullanici> KUllaniciListesi()
+        {
+            {
+                return rep_kul.Liste();
+            }
+        }
+
     }
 }
