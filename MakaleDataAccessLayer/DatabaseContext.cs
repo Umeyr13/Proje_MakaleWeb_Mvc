@@ -21,7 +21,7 @@ namespace MakaleDataAccessLayer
             Database.SetInitializer(new VeriTabaniOlusturucu()); //buradan veri  tabanı sınıfını tetikleyip orada da veri tabanını oluşmasını bekliyoruz.
         }
 
-        //Katagori silmenin düer yolu
+        //Katagori silmenin diğer yolu
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         ////database oluşurken cascade özelliğini açıyoruz...

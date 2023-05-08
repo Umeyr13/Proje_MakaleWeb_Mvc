@@ -7,55 +7,60 @@
 <div>
     <div class="row col-md-10 col-md-offset-1">
 
-    <h4>Kategori Detay</h4>
+    <h2>Kategori Detay</h2>
     <hr />
-       <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Baslik)
-        </dt>
+    <div class="col-md-8 col-md-offset-2">
 
-        <dd>
-            @Html.DisplayFor(model => model.Baslik)
-        </dd>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Baslik)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Aciklama)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Baslik)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Aciklama)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Aciklama)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.KayitTarihi)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Aciklama)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.KayitTarihi)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.KayitTarihi)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DegistirmeTarihi)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.KayitTarihi)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DegistirmeTarihi)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DegistirmeTarihi)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DegistirenKullanici)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DegistirmeTarihi)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DegistirenKullanici)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DegistirenKullanici)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.DegistirenKullanici)
+            </dd>
+
+        </dl>
+
+        <p>
+            @Html.ActionLink("Kaydet", "Edit", new { id = Model.Id }, new { @class = "btn btn-success small" })
+            @Html.ActionLink("Kategoriler", "Index", null, new { @class = "btn btn-warning small" })
+        </p>
+    </div>
        
-       <p>
-    @Html.ActionLink("Kaydet", "Edit", new { id = Model.Id },new {@class="btn btn-success small"})
-    @Html.ActionLink("Kategoriler", "Index",null,new {@class ="btn btn-warning small"})
-</p>
+ 
 
     </div>
 </div>
