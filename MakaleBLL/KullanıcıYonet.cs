@@ -230,7 +230,7 @@ namespace MakaleBLL
             return sonuc;
         }
 
-        public List<Kullanici> KUllaniciListesi()
+        public List<Kullanici> KullaniciListesi()
         {
             {
                 return rep_kul.Liste();

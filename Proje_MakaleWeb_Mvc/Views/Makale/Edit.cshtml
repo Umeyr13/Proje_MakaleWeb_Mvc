@@ -1,0 +1,80 @@
+﻿@model Makale_Entities.Makale
+
+@{
+    ViewBag.Title = "Edit";
+}
+<link href="~/Content/validationCss.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-8 col-md-offset-2">
+
+        <div class="form-horizontal">
+            <h2>Makale Düzenle</h2>
+            <hr />
+            @Html.ValidationSummary(false)
+
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Baslik, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Baslik, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Baslik, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Icerik, new { @class = "control-label col-md-2" })
+
+                </div>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Icerik, 10, 50, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Icerik, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Taslak, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                </div>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Taslak)
+                        @Html.ValidationMessageFor(model => model.Taslak, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Kategori.Id, "Kategori", htmlAttributes: new { @class = "control-label" })
+
+                </div>
+                <div class="col-md-10 ">
+                    @*@Html.DropDownList("KategoriListesi", null, new { @class = "control-label "})*@
+
+                    @Html.DropDownListFor(model => model.Kategori.Id, (SelectList)ViewBag.KategoriListesi, new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+}

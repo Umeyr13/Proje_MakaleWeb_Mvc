@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using Makale_Entities;
 using Makale_Entities.ViewModel;
 using MakaleCommon;
+using Proje_MakaleWeb_Mvc.Models;
+
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
@@ -81,7 +83,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));// her bir x hatasını sonuc.hatalara ekle
                     return View(model);
                 }
-                Session["Login"] = sonuc.nesne;//bulduğu kullanıcıyı kayıt altına almış olduk
+                SessionsUser.login = sonuc.nesne;//bulduğu kullanıcıyı kayıt altına almış olduk
                 Uygulama.login = sonuc.nesne.KullaniciAdi;
                 return RedirectToAction("Index");
             }
@@ -176,8 +178,8 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         public ActionResult ProfilGoster()
         {
-            Kullanici kullanici = Session["Login"] as Kullanici;
-           MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullanıcıBul(kullanici.Id);
+            //Kullanici kullanici = Session["Login"] as Kullanici;
+           MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullanıcıBul(SessionsUser.login.Id);
             if (sonuc.hatalar.Count>0)
             {
                 TempData["hatalar"] = sonuc.hatalar;
@@ -189,8 +191,8 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         public ActionResult ProfilDegistir()
         {
-           Kullanici nesne = Session["Login"] as Kullanici;
-            MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullanıcıBul(nesne.Id);
+           //Kullanici nesne = Session["Login"] as Kullanici;
+            MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullanıcıBul(SessionsUser.login.Id);
             if (sonuc.hatalar.Count >0)
             {
                 TempData["hatalar"] = sonuc.hatalar;
@@ -225,7 +227,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                 }
 
                 //profldeğişti ise 
-                Session["Login"] =sonuc.nesne; //güncel kullanıcı bilgisi
+                SessionsUser.login=sonuc.nesne; //güncel kullanıcı bilgisi
                 //Uygulama.login = sonuc.nesne.KullaniciAdi; Bu burada olursa değiştiren kullanıcı ismi eski kullanıcı ismi olarak ayarlanır. Yukarıda olması daha mantıklı geldi.
                 return RedirectToAction("ProfilGoster");
             }
@@ -239,9 +241,9 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         public ActionResult ProfilSil()
         {
-            Kullanici kullanici = Session["Login"] as Kullanici;
+            //Kullanici kullanici = Session["Login"] as Kullanici;
 
-           MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullaniciSil(kullanici.Id);
+           MakaleBLLSonuc<Kullanici> sonuc = KulYonet.KullaniciSil(SessionsUser.login.Id);
             if (sonuc.hatalar.Count>1)
             {
                 //profil sil in kendi View i olamdığı için error sayfasına yönlendiriyoruz

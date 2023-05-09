@@ -59,11 +59,17 @@
                     </div>
 
                 </div>
-                <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-offset-2 col-md-10 ">
 
-                    @Html.ActionLink("Kategoriler", "Index", null, new { @class = "btn btn-info" })
-                    <input type="submit" value="Kaydet" class="btn btn-default" />
-                </div>
+                    @*@Html.ActionLink("Kategoriler", "Index", null, new { @class = "btn btn-info" })*@
+
+                    @MyHelper.LinkButton("/Kategori/Index","link","info","", "book", "Kategoriler")
+
+                    @*<input type="submit" value="Kaydet" class="btn btn-default" />*@
+
+                    @MyHelper.Button("submit","btn","success","","floppy-save","Kaydet")
+
+                </div >
 
             </div>
         </div>

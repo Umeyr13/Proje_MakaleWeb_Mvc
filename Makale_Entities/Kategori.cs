@@ -16,7 +16,7 @@ namespace Makale_Entities
     [Table("Kategori")]
     public class Kategori:BaseClass
     {
-        [Required,StringLength(50),DisplayName("Başlik")]      
+        [Required,StringLength(50),DisplayName("Kategori")]      
         public string Baslik { get; set; }
 
         [StringLength(150),DisplayName("Açıklama")]

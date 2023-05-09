@@ -20,7 +20,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         // GET: Kullanici
         public ActionResult Index()
         {
-            return View(KulY.KUllaniciListesi());
+            return View(KulY.KullaniciListesi());
         }
 
         // GET: Kullanici/Details/5
