@@ -1,17 +1,21 @@
 ﻿@using MakaleBLL;
 @using Makale_Entities;
+@using Proje_MakaleWeb_Mvc.Models
 @{
-    KategoriYonet ky = new KategoriYonet();
-    List<Kategori> kategoriListesi = ky.Listele();
+//KategoriYonet ky = new KategoriYonet();
+//List<Kategori> kategoriListesi = ky.Listele(); ARTIK BUNA GEREK KALMADI ÇÜNKÜ CACHE DEN ÇEKİCEK VERİLERİ CACHE OLUŞTURDUK
+
+List<Kategori> liste = CacheHelper.KategoriCache();
+
 }
 
 <p class="lead">Kategoriler</p> @*PartialpageKAtegori den geldim*@
 
 <div class="list-group">
     <a href="/Home/Index" class="list-group-item"><span class="glyphicon glyphicon-filter"></span> Tümü</a>
-    @foreach (var item in kategoriListesi)
-    {
+    @foreach (var item in liste)
+     {
         <a href="/Home/SecilenKategori/@item.Id" class="list-group-item"><span class="glyphicon glyphicon-filter"></span> @item.Baslik</a>
-    }
+     }
 
 </div>

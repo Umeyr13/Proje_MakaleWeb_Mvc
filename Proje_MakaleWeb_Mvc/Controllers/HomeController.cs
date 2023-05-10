@@ -8,7 +8,7 @@ using Makale_Entities;
 using Makale_Entities.ViewModel;
 using MakaleCommon;
 using Proje_MakaleWeb_Mvc.Models;
-
+using System.Data.Entity;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
@@ -18,6 +18,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         KategoriYonet KatYonet = new KategoriYonet();
         KullanıcıYonet KulYonet = new KullanıcıYonet();
         KullanıcıYonet ky = new KullanıcıYonet();
+        BegeniYonet BegeniYonet = new BegeniYonet();
         public ActionResult Index()
         {
             Test test = new Test();
@@ -83,7 +84,10 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));// her bir x hatasını sonuc.hatalara ekle
                     return View(model);
                 }
+
+              //  BegeniYonet.ListQuery<Kullanici>().Where(x => x.)
                 SessionsUser.login = sonuc.nesne;//bulduğu kullanıcıyı kayıt altına almış olduk
+
                 Uygulama.login = sonuc.nesne.KullaniciAdi;
                 return RedirectToAction("Index");
             }
@@ -252,6 +256,23 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             }
             Session.Clear();//Bellekten de sildik kullanıcıyı
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Begendiklerim()
+        {
+            var query = BegeniYonet.ListQuery().Include("Kullanici").Include("Makale").Where(x =>x.Kullanici.Id == SessionsUser.login.Id).Select(x => x.Makale).Include("Kategori").Include("Kullanici").OrderByDescending(x=>x.DegistirmeTarihi);//bu sordudan makaleyi almak istiyorum bunlara bir de kategori ve makaleleri de ekle
+
+            SessionsUser.begenilenler = query.ToList();// devam edicem yukarıdaki kod session user set e taşınıcak gibi
+            return View("Index",query.ToList());
+            
+
+
+            /*
+                Inner Join yapmanın başka bir yolu Include
+             
+             
+             
+             */
         }
     }
 

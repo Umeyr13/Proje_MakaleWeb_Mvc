@@ -5,9 +5,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using Makale_Entities;
 using MakaleBLL;
+using Proje_MakaleWeb_Mvc.Models;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
@@ -57,6 +59,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));
                     return View(kategori);
                 }
+                CacheHelper.CacheTemizle();
                 return RedirectToAction("Index");
             }
 
@@ -93,6 +96,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("", x));
                     return View(kategori);
                 }
+                CacheHelper.CacheTemizle();
                 return RedirectToAction("Index");
             }
             return View(kategori);
@@ -118,7 +122,8 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {           
-            KatYonet.KategoriSil(id);            
+            KatYonet.KategoriSil(id);
+            CacheHelper.CacheTemizle();
             return RedirectToAction("Index");
         }
 

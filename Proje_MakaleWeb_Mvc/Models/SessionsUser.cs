@@ -29,5 +29,19 @@ namespace Proje_MakaleWeb_Mvc.Models
             }
               
         }
+
+        public static List<Makale> begenilenler
+            {
+            get 
+                {
+                
+                    return HttpContext.Current.Session["begeniler"] as List<Makale>;
+
+                } 
+            set 
+                {
+                     HttpContext.Current.Session["begeniler"]= value; 
+                }
+            }
     }
 }

@@ -48,7 +48,12 @@ namespace MakaleDataAccessLayer
 
         public List<T> Liste()
         {
-            return _dbSet.ToList();
+            return _dbSet.ToList(); //Select * From <T> Demek
+        }
+
+        public IQueryable<T> ListQueryable() //list bu metottan türemiş "Inner join"
+        {
+            return _dbSet.AsQueryable(); // listeyi ver ben ekleme yapıcam
         }
 
         public List<T> Liste(Expression<Func<T, bool>> kosul)

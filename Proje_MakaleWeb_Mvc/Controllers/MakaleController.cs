@@ -43,7 +43,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         // GET: Makale/Create
         public ActionResult Create()
         {
-            ViewBag.KategoriListesi=new SelectList(KatYonet.Listele(),"Id","Baslik");
+            ViewBag.KategoriListesi=new SelectList(/*KatYonet.Listele*/ CacheHelper.KategoriCache(),"Id","Baslik");
             return View();
         }
 
@@ -61,7 +61,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             {
                 makale.Kullanici =SessionsUser.login;//Makaleyi yazan kişi
                 makale.Kategori =KatYonet.KategoriBul(makale.Kategori.Id);
-                ViewBag.KategoriListesi = new SelectList(KatYonet.Listele(), "Id", "Baslik", makale.Kategori.Id);
+                ViewBag.KategoriListesi = new SelectList(/*KatYonet.Listele*/CacheHelper.KategoriCache(), "Id", "Baslik", makale.Kategori.Id);
                 MakaleBLLSonuc<Makale> sonuc = MakYonet.MakaleEkle(makale);
                 if (sonuc.hatalar.Count>0)
                 {
@@ -78,7 +78,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         public ActionResult Edit(int? id)
         {
             Makale makale =MakYonet.MakaleBul(id.Value);
-            ViewBag.KategoriListesi = new SelectList(KatYonet.Listele(), "Id", "Baslik",makale.Kategori.Id);
+            ViewBag.KategoriListesi = new SelectList(/*KatYonet.Listele()*/ CacheHelper.KategoriCache() , "Id", "Baslik",makale.Kategori.Id);
      
             if (id == null)
             {
@@ -101,7 +101,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             ModelState.Remove("DegistirenKullanici");
             ModelState.Remove("Kategori.Baslik");
             ModelState.Remove("Kategori.DegistirenKullanici");
-            ViewBag.KategoriListesi = new SelectList(KatYonet.Listele(), "Id", "Baslik");
+            ViewBag.KategoriListesi = new SelectList(/*KatYonet.Listele()*/ CacheHelper.KategoriCache(), "Id", "Baslik");
 
             if (ModelState.IsValid)
             {
