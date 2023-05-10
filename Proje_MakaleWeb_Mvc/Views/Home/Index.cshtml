@@ -76,21 +76,27 @@
                                 }
                                 else
                                 {
-                                    <p> @item.Icerik</p>
+                                    <p> @item.Icerik </p>
                                 }
-
+                                
                             </div>
 
                             <div>
                                 <hr />
                             </div>
-                            <div class="ratings">
-                                <p class="pull-right">
-                                    <button class="btn btn-default btn-sm "><span class="glyphicon glyphicon-comment"></span>Yorumlar</button>
-                                </p>
-                                <p>
-                                    <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart"></span>@item.BegeniSayisi</button>
-                                </p>
+
+                            <div class="form-group" >
+                                
+                                    <p class="pull-right">
+                                        <button class="btn btn-default btn-sm " data-toggle="modal" data-target="#model1"><span class="glyphicon glyphicon-comment"></span>Yorumlar</button>
+                                    </p>
+
+                                <div class="ratings" id="begeni">
+
+                                    <p>
+                                        <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart"></span>@item.BegeniSayisi</button>
+                                    </p>
+                                </div>
                             </div>
                             
 
@@ -99,15 +105,17 @@
 
                     </div>
 
-                }
-                </div>
+                 }
+             </div>
 
 
-            </div>
+        </div>
 
     </div>
 
 </div>
+
+@MyHelper.ModalPopup("model1","Yorumlar")
 
 @section footer{
     @Html.Partial("_PartialPageFooter")

@@ -40,9 +40,9 @@ body {
     padding-left: 10px;
     /* color: #d17581;*/
 }
-    .ratings button {
+/*    .ratings button {
         color: red
-    }
+    }*/
 .ratings button:hover{
     color:brown
 }

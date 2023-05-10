@@ -15,5 +15,6 @@ namespace MakaleDataAccessLayer
         List<T> Liste();
         List<T> Liste(Expression<Func<T, bool>> kosul);
         T Find(Expression<Func<T,bool>>kosul);
+        IQueryable<T> ListQueryable();
     }
 }
