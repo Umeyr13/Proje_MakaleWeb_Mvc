@@ -34,12 +34,16 @@ namespace Proje_MakaleWeb_Mvc.Models
             {
             get 
                 {
-                
-                    return HttpContext.Current.Session["begeniler"] as List<Makale>;
+                if (HttpContext.Current.Session["begeniler"] != null)
+                {
+                  return HttpContext.Current.Session["begeniler"] as List<Makale>;
+
+                }
+                return null;
 
                 } 
             set 
-                {
+                {                    
                      HttpContext.Current.Session["begeniler"]= value; 
                 }
             }

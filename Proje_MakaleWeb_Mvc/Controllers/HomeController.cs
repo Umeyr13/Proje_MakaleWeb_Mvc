@@ -84,11 +84,11 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));// her bir x hatasını sonuc.hatalara ekle
                     return View(model);
                 }
-
-              //  BegeniYonet.ListQuery<Kullanici>().Where(x => x.)
                 SessionsUser.login = sonuc.nesne;//bulduğu kullanıcıyı kayıt altına almış olduk
-
                 Uygulama.login = sonuc.nesne.KullaniciAdi;
+                SessionsUser.begenilenler = BegeniYonet.ListQuery().Include("Kullanici").Include("Makale").Where(x => x.Kullanici.Id == SessionsUser.login.Id).Select(x => x.Makale).Include("Kategori").Include("Kullanici").OrderByDescending(x => x.DegistirmeTarihi).ToList(); //deneme kod
+                //  BegeniYonet.ListQuery<Kullanici>().Where(x => x.)
+               // ViewBag.begeni = view bag ile begendi bilgisini göndermeye çalışıcam ************
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -260,10 +260,11 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         public ActionResult Begendiklerim()
         {
-            var query = BegeniYonet.ListQuery().Include("Kullanici").Include("Makale").Where(x =>x.Kullanici.Id == SessionsUser.login.Id).Select(x => x.Makale).Include("Kategori").Include("Kullanici").OrderByDescending(x=>x.DegistirmeTarihi);//bu sordudan makaleyi almak istiyorum bunlara bir de kategori ve makaleleri de ekle
+            //var query = BegeniYonet.ListQuery().Include("Kullanici").Include("Makale").Where(x =>x.Kullanici.Id == SessionsUser.login.Id).Select(x => x.Makale).Include("Kategori").Include("Kullanici").OrderByDescending(x=>x.DegistirmeTarihi);//bu sordudan makaleyi almak istiyorum bunlara bir de kategori ve makaleleri de ekle
 
-            SessionsUser.begenilenler = query.ToList();// devam edicem yukarıdaki kod session user set e taşınıcak gibi
-            return View("Index",query.ToList());
+            //SessionsUser.begenilenler = query.ToList();// devam edicem yukarıdaki kod session user set e taşınıcak gibi
+            var begenilenler = SessionsUser.begenilenler;
+            return View("Index",begenilenler.ToList());
             
 
 
