@@ -143,6 +143,22 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             MakYonet.MakaleSil(id);
             return RedirectToAction("Index");
         }
-   
+
+        [HttpPost]
+        public ActionResult MakaleGetir(int[] makaleidleri)// O an sayfada olan makalelerin Id leri 
+        {
+           BegeniYonet By = new BegeniYonet();
+            if (SessionsUser.login!= null)
+            {
+               List<int> sonuc = By.Liste().Where(x => x.Kullanici.Id == SessionsUser.login.Id && makaleidleri.Contains(x.Makale.Id)).Select(x=>x.Makale.Id).ToList(); // burada kulllanıcı id si ve makale is si bu olanların makale id sini getirr. Yani login olan kullanıcının begendiği makaleler
+
+            }
+
+            //makaleidleri = 1,3,5,7
+            //select * from begeni where kullanıcıid = 5 ve makaleid in (1,2,3)
+            //Liste = 1 ve 3 tür.
+            return Json(new {liste = sonuc});
+        }
+
     }
 }

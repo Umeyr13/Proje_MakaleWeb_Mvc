@@ -57,7 +57,7 @@
                 {
                     x = rnd.Next(200, 240);
                     link = "https://picsum.photos/id/" + x + "/200/300?random=1";
-                    <div class=" col-sm-4 col-lg-4 col-md-4">
+                    <div class=" col-sm-4 col-lg-4 col-md-4 " data-makaleid="@item.Id">
                         <div class="thumbnail">
                             <img src="@link" alt="">
                             <div class="caption">
@@ -92,9 +92,9 @@
                                 </p>
 
                                 <div class="ratings">
-
+                                    @*  <button class="btn btn-default btn-sm begeni" id="begenilen" onclick="islemyap(this,'begen',@item.Id)"><span  *@
                                     <p>
-                                        <button class="btn btn-default btn-sm begeni"><span class=" glyphicon glyphicon-heart  "></span>@item.BegeniSayisi</button>
+                                        <button class="btn btn-default btn-sm begeni" id="begenilen" data-mid="@item.Id" data-like="false" onclick="islemyap(this,'begen',@item.Id)"><span class=" glyphicon glyphicon-heart-empty like-kalp"></span>   <span class="like-count">@item.BegeniSayisi</span> </button>
                                     </p>
                                 </div>
                             </div>
@@ -122,5 +122,5 @@
 
 }
 <script src="~/Scripts/CommentScript.js"></script>
-
+<script src="~/Scripts/LikeScript.js"></script>
 

@@ -12,7 +12,7 @@ namespace Makale_Entities
     public class Yorum:BaseClass
     {
         [Required,StringLength(300)]
-        public string Text { get; set; }
+        public string Text { get; set; } 
 
         public virtual Makale Makale { get; set; }
         public virtual Kullanici Kullanici { get; set; }

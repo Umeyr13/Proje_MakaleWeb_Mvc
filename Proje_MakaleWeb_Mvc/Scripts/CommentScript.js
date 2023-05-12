@@ -1,12 +1,11 @@
-﻿var yakalananid = -1
+﻿var yakalananmakaleid = -1
 
 $(function () { //sayfa yüklendiğinde
     $('#modal1').on('show.bs.modal', function (e) {
 
         var yakalananbtn = $(e.relatedTarget);// O anda tıklanan butonnu yakaladık
-         yakalananid = yakalananbtn.data("makaleid");
-
-        $('#modal1_body').load("/Yorum/YorumGoster/" + yakalananid);
+        yakalananmakaleid = yakalananbtn.data("makaleid");       
+        $('#modal1_body').load("/Yorum/YorumGoster/" + yakalananmakaleid);
 
     });
 });
@@ -54,7 +53,7 @@ $(function () { //sayfa yüklendiğinde
                     }
                     else {
                         //yorumlar tekrar yüklenir
-                        $('#modal1_body').load("/Yorum/YorumGoster/" + yakalananid);
+                        $('#modal1_body').load("/Yorum/YorumGoster/" + yakalananmakaleid);
                     }
 
 
@@ -88,7 +87,7 @@ $(function () { //sayfa yüklendiğinde
                 else
                 {
                     //Yorumlar tekrar yüklensin
-                    $('#modal1_body').load("/Yorum/YorumGoster/" + yakalananid);
+                    $('#modal1_body').load("/Yorum/YorumGoster/" + yakalananmakaleid);
                 }
                
 
@@ -100,8 +99,8 @@ $(function () { //sayfa yüklendiğinde
         {
             var yorum = $("#yapilanyorum").val();
             $.ajax({
-
-                method: "POST", url: "/Yorum/YorumEkle", data: { Text: yorum, id: yakalananid }
+                                                        //Yorum.cs deki Text property sinden dolayı burada Text yazıyor. Text = yorum olduğunu anlıyor..Yorum ekle de nesneyi alıyoruz ya Yorum nesnesinin içinde Text adlı prop arıyor.
+                method: "POST", url: "/Yorum/YorumEkle", data: { Text: yorum, id: yakalananmakaleid }
 
             }).done(function (sonuc) {
 
@@ -110,12 +109,38 @@ $(function () { //sayfa yüklendiğinde
                 }
                 else {
                     //Yorumlar tekrar yüklensin
-                    $('#modal1_body').load("/Yorum/YorumGoster/" + yakalananid);
+                    $('#modal1_body').load("/Yorum/YorumGoster/" + yakalananmakaleid);
                 }
 
             }).fail(function () {alert("Baglantı kurulamadı") });
 
         }
+
+        //else if (islem == "begen")
+        //{
+           
+        //    $.ajax({
+
+        //        method:"POST", url: "Begeni/BegeniEkle/"+yakalananmakaleid
+
+
+        //    }).done(function (sonuc) {
+
+        //        if (sonuc.bişeylerbişeyler) {
+
+        //            $("#begenilen").css("background-color","red")
+
+        //        }
+        //        else if (sonuc.bişeyler) {
+
+        //            $("#begenilen").css("background-color", "black")
+
+        //        }
+
+
+        //    }) ;
+
+        //}
    
 
 
