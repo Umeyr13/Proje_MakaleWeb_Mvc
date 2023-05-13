@@ -84,7 +84,10 @@ namespace Proje_MakaleWeb_Mvc.Controllers
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("",x));// her bir x hatasını sonuc.hatalara ekle
                     return View(model);
                 }
+
+              //  BegeniYonet.ListQuery<Kullanici>().Where(x => x.)
                 SessionsUser.login = sonuc.nesne;//bulduğu kullanıcıyı kayıt altına almış olduk
+
                 Uygulama.login = sonuc.nesne.KullaniciAdi;
                 SessionsUser.begenilenler = BegeniYonet.ListQuery().Include("Kullanici").Include("Makale").Where(x => x.Kullanici.Id == SessionsUser.login.Id).Select(x => x.Makale).Include("Kategori").Include("Kullanici").OrderByDescending(x => x.DegistirmeTarihi).ToList(); //deneme kod
                 //  BegeniYonet.ListQuery<Kullanici>().Where(x => x.)

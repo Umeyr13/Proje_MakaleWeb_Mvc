@@ -1,8 +1,8 @@
-﻿
+﻿@using Makale_Entities
 @{
     ViewBag.Title = "Index";
 }
-
+@model List<Makale>
 <div class="container">
 
     <div class="row">
@@ -47,66 +47,66 @@
 
             <div class="row">
 
-                @{ 
+                @{
                     Random rnd = new Random();
-                    int x = rnd.Next(200,240);
-                    string link = "https://picsum.photos/id"+x+"/200/300";
+                    int x = rnd.Next(200, 240);
+                    string link = "https://picsum.photos/id" + x + "/200/300";
                 }
 
                 @foreach (var item in Model)
                 {
-                    x= rnd.Next(200,240);
+                    x = rnd.Next(200, 240);
                     link = "https://picsum.photos/id/" + x + "/200/300?random=1";
-                    <div class=" col-sm-4 col-lg-4 col-md-4">
+                    <div class=" col-sm-4 col-lg-4 col-md-4 " data-makaleid="@item.Id">
                         <div class="thumbnail">
                             <img src="@link" alt="">
                             <div class="caption">
                                 <h4>
                                     <a href="#">@item.Baslik</a>
-                                </h4> 
+                                </h4>
                                 <h6 class="text-right">
                                     <span class="glyphicon glyphicon-user"></span>@item.Kullanici.KullaniciAdi
                                     <br />
                                     <span class="glyphicon glyphicon-time"></span>@item.DegistirmeTarihi.ToString("dd:MM:yy")
                                 </h6>
-                                @if (!string.IsNullOrEmpty(item.Icerik) && item.Icerik.Length>60)
+                                @if (!string.IsNullOrEmpty(item.Icerik) && item.Icerik.Length > 60)
                                 {
-                                    <p>@item.Icerik.Substring(0,60)...</p>
+                                    <p>@item.Icerik.Substring(0, 60)...</p>
                                     <a href="#" class="btn btn-default btn-xs pull-right">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a>
                                 }
                                 else
                                 {
-                                    <p> @item.Icerik </p>
+                                    <p> @item.Icerik</p>
                                 }
-                                
+
                             </div>
 
                             <div>
                                 <hr />
                             </div>
 
-                            <div class="form-group" >
-                                
-                                    <p class="pull-right">
-                                        <button class="btn btn-default btn-sm " data-toggle="modal" data-target="#model1"><span class="glyphicon glyphicon-comment"></span>Yorumlar</button>
-                                    </p>
+                            <div class="form-group">
+
+                                <p class="pull-right">
+                                    <button class="btn btn-default btn-sm " data-toggle="modal" data-target="#modal1" data-makaleid="@item.Id"><span class="glyphicon glyphicon-comment"></span>Yorumlar</button>
+                                </p>
 
                                 <div class="ratings">
-
+                                    @*  <button class="btn btn-default btn-sm begeni" id="begenilen" onclick="islemyap(this,'begen',@item.Id)"><span  *@
                                     <p>
-                                        <button class="btn btn-default btn-sm begeni"><span class=" glyphicon glyphicon-heart  "></span>@item.BegeniSayisi</button>
+                                        <button class="btn btn-default btn-sm begeni" id="begenilen" data-mid="@item.Id" data-like="false" onclick="islemyap(this,'begen',@item.Id)"><span class=" glyphicon glyphicon-heart-empty like-kalp"></span>   <span class="like-count">@item.BegeniSayisi</span> </button>
                                     </p>
                                 </div>
                             </div>
-                            
+
 
 
                         </div>
 
                     </div>
 
-                 }
-             </div>
+                }
+            </div>
 
 
         </div>
@@ -115,22 +115,12 @@
 
 </div>
 
-@MyHelper.ModalPopup("model1","Yorumlar")
+@MyHelper.ModalPopup("modal1", "Yorumlar")
 
 @section footer{
     @Html.Partial("_PartialPageFooter")
-    
-    }
 
-<script>
+}
+<script src="~/Scripts/CommentScript.js"></script>
+<script src="~/Scripts/LikeScript.js"></script>
 
-    $(".begeni").click(function () {
-        var currentColor = $(this).css("color");
-        if (currentColor === "rgb(255, 0, 0)") {
-            $(this).css("color", "black");
-        } else {
-            $(this).css("color", "red");
-        }
-    });
-
-</script>

@@ -1,6 +1,17 @@
-﻿
-<div class="media">
-    <div class="media-left media-middle">
+﻿@using Makale_Entities
+@using Proje_MakaleWeb_Mvc.Models
+
+@model List<Yorum>
+
+@{ 
+    Kullanici login = SessionsUser.login;
+}
+
+@foreach (var item in Model)
+{
+    <div class="media">
+
+    <div class="media-left media-top">
         @*<a href="#">
             <img class="media-object" src="..." alt="...">
         </a>*@
@@ -12,18 +23,48 @@
 
     <div class="media-body">
         <div>
-            <span class="col-md-10">Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</span>
+            <span class="col-md-10" id="yorum_@item.Id" contenteditable="false" @*Bu özellik true olursa textbox a dönüştürür span i*@> @item.Text </span>
+            @if (login != null && login.Id==item.Kullanici.Id)
+             {
+                  <span class="col-md-2 text-right">
+                <button type="button" class="btn btn-warning btn-xs" data-editmod="false" onclick="islemyap(this, 'update',@item.Id, '#yorum_@item.Id');" ><span class="glyphicon glyphicon-edit"></span></button>
 
-            <span class="col-md-2">
-                <button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Değiştir</button>
-                <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span>Sil</button>
+                <button type="button" class="btn btn-danger btn-xs" onclick="islemyap(this, 'delete',@item.Id, '#yorum_@item.Id');"><span class="glyphicon glyphicon-trash"></span></button>
             </span>
 
-            <small class="col-md-12">
-                <span class=" glyphicon glyphicon-user">Kullanıcı adı</span>
-                <span class=" glyphicon glyphicon-time">zaman</span>
+             }
+
+            <small class="col-md-12 text-right">
+                <span class=" glyphicon glyphicon-user">@item.Kullanici.KullaniciAdi</span>
+                <span class=" glyphicon glyphicon-time">@item.DegistirmeTarihi</span>
             </small>
 
         </div>
     </div>
 </div>
+
+}
+
+@if (login!= null)
+ {
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" >
+
+            <div class="input-group">
+                <input type="text" id="yapilanyorum" class="form-control" placeholder="Yorumunuz">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" onclick="islemyap(this,'insert')" >Gönder</button> @* this diyip butonu gönderdik birde nereye gönderdiğimizi belirttik insert e git*@
+                </span>
+            </div>
+
+
+        </div>
+    </div>
+
+ }

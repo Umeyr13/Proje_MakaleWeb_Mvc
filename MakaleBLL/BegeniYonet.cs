@@ -15,5 +15,10 @@ namespace MakaleBLL
         {
             return rep_Begen.ListQueryable();
         }
+        public List<Begeni> Liste()
+        {
+            List<Begeni> liste = rep_Begen.Liste();
+            return liste;
+        }
     }
 }
