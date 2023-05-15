@@ -7,9 +7,7 @@
 <h2>Index</h2>
 <div class="col-md-10 col-md-offset-1">
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+
     <table class="table">
         <tr>
             <th>
@@ -39,39 +37,47 @@
             <th></th>
         </tr>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model =>item.Kategori.Baslik)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Baslik)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icerik)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Taslak)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BegeniSayisi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KayitTarihi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DegistirmeTarihi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DegistirenKullanici)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Kategori.Baslik)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Baslik)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Icerik)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Taslak)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BegeniSayisi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KayitTarihi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DegistirmeTarihi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DegistirenKullanici)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    @MyHelper.LinkButton("/Makale/Edit/" + item.Id, "link", "success", "btn-xs", "edit", null)
+                    @MyHelper.LinkButton("/Makale/Details/" + item.Id, "link", "warning", "btn-xs", "search", null)
+                    @MyHelper.LinkButton("/Makale/Delete/" + item.Id, "link", "danger", "btn-xs", "trash", null)
+                    <button class="btn btn-default btn-xs " data-toggle="modal" data-target="#modal1" data-makaleid="@item.Id"><span class="glyphicon glyphicon-comment"></span></button>
+                </td>
+            </tr>
+        }
 
     </table>
+    @Html.ActionLink("Yeni Makale", "Create", null, new { @class = "glyphicon glyphicon-file btn btn-info " })
 </div>
+@MyHelper.ModalPopup("modal1", "Yorumlar")
+<script src="~/Scripts/CommentScript.js"></script>

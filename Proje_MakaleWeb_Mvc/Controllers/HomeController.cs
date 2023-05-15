@@ -9,6 +9,7 @@ using Makale_Entities.ViewModel;
 using MakaleCommon;
 using Proje_MakaleWeb_Mvc.Models;
 using System.Data.Entity;
+using System.Reflection;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
@@ -28,16 +29,15 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             //test.UpdateTest();
             // test.DeleteTest();
             // test.YorumTest();
-            
-           
-            return View(mYonet.Listele());
+
+            return View(mYonet.Listele().Where(x => x.Taslak == false).ToList());
 
         }
 
         public PartialViewResult kategoriPartial()//Örnek olarak oluşturuldu kullanmıyoruz. Model ile de olduğunu gördük
         {
-            KategoriYonet kYonet = new KategoriYonet();
-            List<Kategori> liste = kYonet.Listele();
+          
+            List<Kategori> liste = KatYonet.Listele();
             return PartialView("_PartialPageKat2", liste);//model gönderdik 
         }
 
@@ -49,17 +49,17 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             }
 
             Kategori secKat = KatYonet.KategoriBul(id.Value);//null olmasına izin verdiğimiz için direk "id" yi değilde id.value yazmamızı istedi
-            return View("Index",secKat.Makaleler);
+            return View("Index",secKat.Makaleler.Where(x=>x.Taslak==false).ToList());
         }
 
         public ActionResult EnBegenilenler()// Index e  modeli değiştirip göndericez
         {
-            return View("Index",mYonet.Listele().OrderByDescending(x =>x.BegeniSayisi).ToList());//büyükten küçüğe sıralamış olduk. Sınır vermedik top 15 veya top 5 gibi ek filtre eklenebilir
+            return View("Index",mYonet.Listele().Where(x=>x.Taslak==false).OrderByDescending(x =>x.BegeniSayisi).ToList());//büyükten küçüğe sıralamış olduk. Sınır vermedik top 15 veya top 5 gibi ek filtre eklenebilir
         }
 
         public ActionResult Sonyazilar()
         {
-            return View("Index",mYonet.Listele().OrderByDescending(x => x.DegistirmeTarihi).ToList());
+            return View("Index",mYonet.Listele().Where(x => x.Taslak == false).OrderByDescending(x => x.DegistirmeTarihi).ToList());
         }
 
         public ActionResult Hakkımızda() //sayfası olacak
@@ -263,19 +263,11 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         public ActionResult Begendiklerim()
         {
             //var query = BegeniYonet.ListQuery().Include("Kullanici").Include("Makale").Where(x =>x.Kullanici.Id == SessionsUser.login.Id).Select(x => x.Makale).Include("Kategori").Include("Kullanici").OrderByDescending(x=>x.DegistirmeTarihi);//bu sordudan makaleyi almak istiyorum bunlara bir de kategori ve makaleleri de ekle
-
+           // Inner Join yapmanın başka bir yolu Include
             //SessionsUser.begenilenler = query.ToList();// devam edicem yukarıdaki kod session user set e taşınıcak gibi
             var begenilenler = SessionsUser.begenilenler;
             return View("Index",begenilenler.ToList());
             
-
-
-            /*
-                Inner Join yapmanın başka bir yolu Include
-             
-             
-             
-             */
         }
     }
 

@@ -55,14 +55,16 @@
 
                 @foreach (var item in Model)
                 {
+                 
                     x = rnd.Next(200, 240);
                     link = "https://picsum.photos/id/" + x + "/200/300?random=1";
                     <div class=" col-sm-4 col-lg-4 col-md-4 " data-makaleid="@item.Id">
-                        <div class="thumbnail">
+
+                        <div class="thumbnail-@item.Id">
                             <img src="@link" alt="">
                             <div class="caption">
                                 <h4>
-                                    <a href="#">@item.Baslik</a>
+                                    <a href="#" data-toggle="modal" data-target="#modal_makale" data-makaleid="@item.Id">@item.Baslik</a>
                                 </h4>
                                 <h6 class="text-right">
                                     <span class="glyphicon glyphicon-user"></span>@item.Kullanici.KullaniciAdi
@@ -72,7 +74,7 @@
                                 @if (!string.IsNullOrEmpty(item.Icerik) && item.Icerik.Length > 60)
                                 {
                                     <p>@item.Icerik.Substring(0, 60)...</p>
-                                    <a href="#" class="btn btn-default btn-xs pull-right">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a>
+                                    <a href="#" class="btn btn-default btn-xs pull-right"data-toggle="modal" data-target="#modal_makale" data-makaleid="@item.Id">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a>
                                 }
                                 else
                                 {
@@ -94,7 +96,7 @@
                                 <div class="ratings">
                                     @*  <button class="btn btn-default btn-sm begeni" id="begenilen" onclick="islemyap(this,'begen',@item.Id)"><span  *@
                                     <p>
-                                        <button class="btn btn-default btn-sm begeni" id="begenilen" data-mid="@item.Id" data-like="false" onclick="islemyap(this,'begen',@item.Id)"><span class=" glyphicon glyphicon-heart-empty like-kalp"></span>   <span class="like-count">@item.BegeniSayisi</span> </button>
+                                        <button class="btn btn-default btn-sm begeni" id="begenilen" data-mid="@item.Id" data-like="false" onclick="islemyap(this,'begen',@item.Id)"><span class=" glyphicon glyphicon-heart-empty like-kalp-@item.Id"></span>   <span class="like-@item.Id">@item.BegeniSayisi</span> </button>
                                     </p>
                                 </div>
                             </div>
@@ -117,6 +119,7 @@
 
 @MyHelper.ModalPopup("modal1", "Yorumlar")
 
+@MyHelper.ModalPopup("modal_makale", "Makale Detay")@* Makaaleye tıklayınca önizleme için*@ 
 @section footer{
     @Html.Partial("_PartialPageFooter")
 
@@ -124,3 +127,18 @@
 <script src="~/Scripts/CommentScript.js"></script>
 <script src="~/Scripts/LikeScript.js"></script>
 
+<script>
+
+    var yakalananmakaleid = -1
+    //makale detayı göster
+    $(function () { //sayfa yüklendiğinde
+        $('#modal_makale').on('show.bs.modal', function (e) {
+
+            var yakalananbtn = $(e.relatedTarget);// O anda tıklanan butonnu yakaladık
+            yakalananmakaleid = yakalananbtn.data("makaleid");
+            $('#modal_makale_body').load("/Makale/MakaleGoster/" + yakalananmakaleid);
+
+        });
+    });
+
+</script>
