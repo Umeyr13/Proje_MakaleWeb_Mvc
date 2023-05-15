@@ -27,7 +27,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
                     
-                    @Html.TextBoxFor(x=>x.Sifre,new {@class="form-control",placeholder ="Şifre",id="txtsifre"})
+                    @Html.TextBoxFor(x=>x.Sifre,new {@class="form-control",placeholder ="Şifre",id="txtsifre",type= "password" })
                 </div>
 
                 <div class="checkbox">
@@ -50,6 +50,7 @@
 }
 
 <script>
+ 
     //$(function () // sAyfa yüklendiğinde
     //{
     //    $("footer").hide(); // $("footer").parent().hide(); footer un parent ini gizle demek. footer ın olduğu div i gizledi.
@@ -78,7 +79,7 @@
     $("#sifregoster").change(function () {
         var passwordInput = $("#txtsifre");
         var isChecked = $(this).is(":checked");
-        passwordInput.prop("type", isChecked ? "password" : "text");
+        passwordInput.prop("type", !isChecked ? "password" : "text");
     });
      
 </script>

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,19 +24,21 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 
-@*<body onselectstart = “return false”>*@
+    @*<body onselectstart = “return false”>*@
 
-    @{ 
-        Makale_Entities.Kullanici kul = null; 
+    @{
+        Makale_Entities.Kullanici kul = null;
 
-        if (Session["Login"]!= null) // eğer session boş değilse kullanıcıyı alıyoruz session dan. Bu sayede kullanıcı ismini yazdırabiliyoruz
+        if (Session["Login"] != null) // eğer session boş değilse kullanıcıyı alıyoruz session dan. Bu sayede kullanıcı ismini yazdırabiliyoruz
         {
             kul = Session["Login"] as Makale_Entities.Kullanici;
         }
     }
-
+    <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
         <div class="container ">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -72,7 +74,7 @@
                             </ul>
                         </li>
                     }
-                
+
                     <li>
                         <a href="/Home/EnBegenilenler"><span class="glyphicon glyphicon-heart"></span> En Beğenilenler</a>
                     </li>
@@ -91,7 +93,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @*Session dan gelen bilgiye göre bunlardan ikisi gözükecek*@
 
-                    @{ 
+                    @{
                         if (kul == null)
                         {
                             <li><a href="/Home/Giris"><span class="glyphicon glyphicon-log-in">   </span> Giriş</a></li>
@@ -111,24 +113,16 @@
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
+
     </nav>
 
-    <!-- Page Content -->
-    
-         @RenderBody()
 
-         @RenderSection("footer",false)
-    
+      @RenderBody()
 
+      @RenderSection("footer", false)
 
- 
-        <!-- Footer ı buradan partialPageFooter a taşıyoruz. İsetemdiğimiz yerde saklamak yerine istediğimiz yerde çağıralım --> 
-       
-  
-    <!-- /.container -->
+       <!-- Footer ı buradan partialPageFooter a taşıyoruz. İsetemdiğimiz yerde saklamak yerine istediğimiz yerde çağıralım -->
 
-
-
-@*</body>*@
+</body>
 
 </html>

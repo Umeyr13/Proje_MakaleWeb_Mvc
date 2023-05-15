@@ -1,8 +1,8 @@
 ﻿
 $(function () {
-    //data-makaleid atribute ü olan div i bana getir
-    var makaledizi=[];
+    var makaledizi = [];
 
+    //data-makaleid atribute ü olan div i bana getir
     $("div[data-makaleid]").each(function(i,e){
 
         makaledizi.push($(e).data("makaleid"));
@@ -20,7 +20,7 @@ $(function () {
         if(sonuc.liste !=null && sonuc.liste.length>0)
         {
             for(var i = 0 ; i<sonuc.liste.length;i++)
-            {
+            {   //eğer begendi ise içi dolu kalp yap
                 var id = sonuc.liste[i];
                 var btn = $("button[data-mid="+id+"]") // İlgili butonu bulduk
                 btn.data("like",true);
