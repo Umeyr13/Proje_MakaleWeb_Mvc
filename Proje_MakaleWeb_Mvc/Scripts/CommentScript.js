@@ -150,14 +150,14 @@ $(function () { //sayfa yüklendiğinde
 
 
 
-    $(".begeni").click(function () {
-            var currentColor = $(this).css("color");
-    if (currentColor === "rgb(255, 0, 0)") {
-        $(this).css("color", "black");
-            } else {
-        $(this).css("color", "red");
-            }
-        });
+    //$(".begeni").click(function () {
+    //        var currentColor = $(this).css("color");
+    //if (currentColor === "rgb(255, 0, 0)") {
+    //    $(this).css("color", "black");
+    //        } else {
+    //    $(this).css("color", "red");
+    //        }
+    //    });
 
 //$('#modal1').on('show.bs.modal', function (e) {
 

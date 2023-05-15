@@ -17,7 +17,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
        MakaleBLLSonuc<Makale> sonuc = new MakaleBLLSonuc<Makale> ();
         MakaleYonet MakYonet = new MakaleYonet ();
         KategoriYonet KatYonet = new KategoriYonet ();
-
+        BegeniYonet By = new BegeniYonet();
         // GET: Makale
         public ActionResult Index()
         {
@@ -147,17 +147,59 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         [HttpPost]
         public ActionResult MakaleGetir(int[] makaleidleri)// O an sayfada olan makalelerin Id leri 
         {
-           BegeniYonet By = new BegeniYonet();
-            if (SessionsUser.login!= null)
+            List<int> Mliste = null;
+          
+            if (SessionsUser.login!= null && makaleidleri !=null) //ilk kadegori oluştuğunda makale id leri boş olduğu için makaleid leri boş değilse diye ifade ekledik
             {
-               List<int> sonuc = By.Liste().Where(x => x.Kullanici.Id == SessionsUser.login.Id && makaleidleri.Contains(x.Makale.Id)).Select(x=>x.Makale.Id).ToList(); // burada kulllanıcı id si ve makale is si bu olanların makale id sini getirr. Yani login olan kullanıcının begendiği makaleler
-
+                Mliste = By.Liste().Where(x => x.Kullanici.Id == SessionsUser.login.Id && makaleidleri.Contains(x.Makale.Id)).Select(x=>x.Makale.Id).ToList(); // burada kulllanıcı id si ve makale is si bu olanların makale id sini getirr. Yani login olan kullanıcının begendiği makaleler
+                //Mliste = By.ListQuery().Include("Kullanıcı").Include("Makale").Where(x => x.Kullanici.Id == SessionsUser.login.Id).Select(x => x.Makale).Include(k => k.Kategori).ToList();
             }
 
             //makaleidleri = 1,3,5,7
             //select * from begeni where kullanıcıid = 5 ve makaleid in (1,2,3)
             //Liste = 1 ve 3 tür.
-            return Json(new {liste = sonuc});
+            return Json(new {liste = Mliste});
+        }
+
+        [HttpPost]
+        public ActionResult MakaleBegen(int makaleid, bool begeni)//buradak değer ajax data daki isimler ile aynı olmalı
+        {
+            int sonuc =0;
+           Begeni like = By.BegeniBul(makaleid,SessionsUser.login.Id);
+            Makale makale = MakYonet.MakaleBul(makaleid);
+            if (like!=null && begeni==false)
+            {
+               sonuc= By.BegeniSil(like);
+            }
+            else if (like ==null && begeni == true)
+            {
+              sonuc =  By.BegeniEkle(new Begeni { Kullanici = SessionsUser.login, Makale = makale });
+                
+            }
+            if (sonuc>0)
+            {   
+                if (begeni) { makale.BegeniSayisi++; }
+                else { makale.BegeniSayisi--; }
+                return Json(new {hata = false, begenisayisi=makale.BegeniSayisi });
+            }
+            else
+            {
+                return Json(new {hata = true, begenisayisi = makale.BegeniSayisi }); 
+            }
+        }
+
+        public ActionResult MakaleGoster(int? id) //Route config de "id" yazdığı için ismi "id" oldu
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Makale makale = MakYonet.MakaleBul(id.Value);
+            if (makale == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_PartialPageMakaleGoster", makale);;
         }
 
     }

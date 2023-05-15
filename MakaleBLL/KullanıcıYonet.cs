@@ -75,6 +75,8 @@ namespace MakaleBLL
                 sonuc.nesne.KullaniciAdi = model.KullaniciAdi;
                 sonuc.nesne.Sifre = model.Sifre;
                 sonuc.nesne.ProfilResimDosyaAdi = model.ProfilResimDosyaAdi;
+                sonuc.nesne.Admin=model.Admin;
+                sonuc.nesne.aktif = model.aktif;
                 // sonuc.nesne.DegistirmeTarihi Repository class ında bu veriler zaten güncellenecek...
                 if (rep_kul.Update(sonuc.nesne) < 1) // db.SaveChanges gittiği yerde var.
                 {
