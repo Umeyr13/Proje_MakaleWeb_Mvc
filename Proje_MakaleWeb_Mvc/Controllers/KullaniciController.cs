@@ -8,9 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using Makale_Entities;
 using MakaleBLL;
+using Proje_MakaleWeb_Mvc.Filter;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
+    [Auth]
+    [AuthAdmin]
     public class KullaniciController : Controller
     {
         KullanıcıYonet KulY = new KullanıcıYonet();

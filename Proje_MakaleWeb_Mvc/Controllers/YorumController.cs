@@ -1,5 +1,6 @@
 ﻿using Makale_Entities;
 using MakaleBLL;
+using Proje_MakaleWeb_Mvc.Filter;
 using Proje_MakaleWeb_Mvc.Models;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,8 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             }
            return PartialView("_PartialPageYorumlar",makale.Yorumlar);// tıklayan makalenin id sine göre yorumları gönderiyoruz
         }
-      
 
+        [Auth]
         public ActionResult YorumGuncelle(int? id, string text) 
         {
             if  (id ==null)
@@ -54,6 +55,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         }
 
+        [Auth]
         public ActionResult YorumSil(int? id)
         {
             if (id == null)
@@ -77,6 +79,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         }
 
+        [Auth]
         public ActionResult YorumEkle(Yorum yorum, int? id )
         {
             if (id == null)

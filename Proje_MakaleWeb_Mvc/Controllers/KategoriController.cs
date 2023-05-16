@@ -9,10 +9,13 @@ using System.Web.Caching;
 using System.Web.Mvc;
 using Makale_Entities;
 using MakaleBLL;
+using Proje_MakaleWeb_Mvc.Filter;
 using Proje_MakaleWeb_Mvc.Models;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
+    [Auth]
+    [AuthAdmin]
     public class KategoriController : Controller
     {
       KategoriYonet KatYonet = new KategoriYonet();

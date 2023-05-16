@@ -10,9 +10,11 @@ using MakaleCommon;
 using Proje_MakaleWeb_Mvc.Models;
 using System.Data.Entity;
 using System.Reflection;
+using Proje_MakaleWeb_Mvc.Filter;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
+    [Exc]
     public class HomeController : Controller
     {
         MakaleYonet mYonet = new MakaleYonet();
@@ -29,7 +31,8 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             //test.UpdateTest();
             // test.DeleteTest();
             // test.YorumTest();
-
+            //int i = 1;
+            //int sonuc = i/0;
             return View(mYonet.Listele().Where(x => x.Taslak == false).ToList());
 
         }
@@ -183,6 +186,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return View();
         }
 
+        [Auth]
         public ActionResult ProfilGoster()
         {
             //Kullanici kullanici = Session["Login"] as Kullanici;
@@ -196,6 +200,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return View(sonuc.nesne);
         }
 
+        [Auth]
         public ActionResult ProfilDegistir()
         {
            //Kullanici nesne = Session["Login"] as Kullanici;
@@ -209,6 +214,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return View(sonuc.nesne);
         }
 
+        [Auth]
         [HttpPost]
         public ActionResult ProfilDegistir(Kullanici kullanici, HttpPostedFileBase profilresmidegeldi)
         {
@@ -246,6 +252,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         }
 
+        [Auth]
         public ActionResult ProfilSil()
         {
             //Kullanici kullanici = Session["Login"] as Kullanici;
@@ -261,6 +268,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return RedirectToAction("Index");
         }
 
+        [Auth]
         public ActionResult Begendiklerim()
         {
             //var query = BegeniYonet.ListQuery().Include("Kullanici").Include("Makale").Where(x =>x.Kullanici.Id == SessionsUser.login.Id).Select(x => x.Makale).Include("Kategori").Include("Kullanici").OrderByDescending(x=>x.DegistirmeTarihi);//bu sordudan makaleyi almak istiyorum bunlara bir de kategori ve makaleleri de ekle
@@ -270,9 +278,18 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return View("Index",begenilenler.ToList());
             
         }
+
+
+        public ActionResult YetkisizErisim()
+        {
+            return View();
+        }
+
+        public ActionResult HataliIslem()
+        {
+            return View() ;
+        }
+
     }
-
-    
-
 
 }

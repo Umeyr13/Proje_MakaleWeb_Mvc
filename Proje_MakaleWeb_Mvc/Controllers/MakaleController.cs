@@ -8,10 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using Makale_Entities;
 using MakaleBLL;
+using Proje_MakaleWeb_Mvc.Filter;
 using Proje_MakaleWeb_Mvc.Models;
 
 namespace Proje_MakaleWeb_Mvc.Controllers
 {
+    
     public class MakaleController : Controller
     {
        MakaleBLLSonuc<Makale> sonuc = new MakaleBLLSonuc<Makale> ();
@@ -19,13 +21,20 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         KategoriYonet KatYonet = new KategoriYonet ();
         BegeniYonet By = new BegeniYonet();
         // GET: Makale
+        [Auth]
         public ActionResult Index()
         {
             //Kullanici kullanici = Session["login"] as Kullanici;
-            return View(MakYonet.Listele().Where(x=>x.Kullanici.Id==SessionsUser.login.Id) );
+            if (SessionsUser.login!= null)
+            {
+                return View(MakYonet.Listele().Where(x=>x.Kullanici.Id==SessionsUser.login.Id) );//log in için makalelerim
+
+            }
+            return View(MakYonet.Listele());
         }
 
         // GET: Makale/Details/5
+        [Auth]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -41,6 +50,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         }
 
         // GET: Makale/Create
+        [Auth]
         public ActionResult Create()
         {
             ViewBag.KategoriListesi=new SelectList(/*KatYonet.Listele*/ CacheHelper.KategoriCache(),"Id","Baslik");
@@ -51,6 +61,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Auth]
         public ActionResult Create(Makale makale)
         {
             ModelState.Remove("DegistirenKullanici");
@@ -75,6 +86,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         }
 
         // GET: Makale/Edit/5
+        [Auth]
         public ActionResult Edit(int? id)
         {
             Makale makale =MakYonet.MakaleBul(id.Value);
@@ -96,6 +108,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Auth]
         public ActionResult Edit( Makale makale)
         {
             ModelState.Remove("DegistirenKullanici");
@@ -120,6 +133,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         }
 
         // GET: Makale/Delete/5
+        [Auth]
         public ActionResult Delete(int? id)
         {
 
@@ -136,6 +150,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
         }
 
         // POST: Makale/Delete/5
+        [Auth]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -144,6 +159,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return RedirectToAction("Index");
         }
 
+        [Auth]
         [HttpPost]
         public ActionResult MakaleGetir(int[] makaleidleri)// O an sayfada olan makalelerin Id leri 
         {
@@ -161,11 +177,12 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             return Json(new {liste = Mliste});
         }
 
+        [Auth]
         [HttpPost]
         public ActionResult MakaleBegen(int makaleid, bool begeni)//buradak değer ajax data daki isimler ile aynı olmalı
         {
             int sonuc =0;
-           Begeni like = By.BegeniBul(makaleid,SessionsUser.login.Id);
+           Begeni like = By.BegeniBul(makaleid,SessionsUser.login.Id); //giriş yapılmadan begenide hata veriyor bi if eklemek lazım login e atabilir
             Makale makale = MakYonet.MakaleBul(makaleid);
             if (like!=null && begeni==false)
             {
@@ -188,6 +205,7 @@ namespace Proje_MakaleWeb_Mvc.Controllers
             }
         }
 
+       
         public ActionResult MakaleGoster(int? id) //Route config de "id" yazdığı için ismi "id" oldu
         {
             if (id == null)
